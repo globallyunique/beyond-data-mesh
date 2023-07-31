@@ -11,11 +11,13 @@ Data Mesh[^data-mesh-intro] is a major advance over past architectures. However,
 
 ![data mesh boundaries](./images/data-mesh-boundaries.png)
 
-The key challenge of a data mesh architecture is finding the right boundaries for the nodes of the domain. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
+Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
 
 >The ubiquitous language is not just a set of terms or jargon, but a shared understanding of the domain and its problems. It reflects the domain model, which is the conceptual representation of the domain in code. The ubiquitous language and the domain model should evolve together, as the developers and the business experts learn more about the domain and refine their solutions. The ubiquitous language is important because it enables collaboration, alignment, and clarity among the different roles and perspectives involved in the software project.
 
-The boundaries are at the points where the language of the domain’s data models and processing changes. We use the language and the boundary it defines to find the data products and APIs. Using the language also enables us to clearly understand what's going on behind those boundaries and to better enable that work. 
+The boundaries are at the points where the language of the domain’s data models and processing changes. We use the language and the boundary it defines to find the data products and APIs. Using the language also enables us to clearly understand what's going on behind those boundaries and to better enable that work.[^markus-on-DDD] 
+
+[^markus-on-DDD]: For more about the intersection of DDD and the language of domains see [On the Relationship between Domain-Driven Design and Domain-Specific Languages](https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/)
 
 ## Domain Languages
 
@@ -25,7 +27,7 @@ Combining data mesh and DDD thinking is a good start. The DDD approach stops at 
 
 Formalizing the language means we work with the Subject Matter Experts (SMEs) of the domain to define the structure and syntax of the ubiquitous language.  The syntax is built on existing notations and conventions used in the domain, e.g., text, tables, symbols, and diagrams, not just lots of keywords and curly braces. It requires becoming very clear – formal! – about the concepts that go into the language. In fact, building the language, because of the need for formalization, helps you become clear about the concepts of the domain in the first place. The benefits of the approach happen right away because language definition acts as a catalyst for understanding the domain![^Markus-adapted]
 
-[^Markus-adapted]: This paragraph is adapted from articles written by [Markus Voelter](https://voelter.de/index.html). 
+[^Markus-adapted]: This paragraph is taken from articles written by [Markus Voelter](https://voelter.de/index.html). 
 
 Defining and potentially implementing a true DSL is the way to get to the ultimate in power and differentiation of a data mesh solution. Thankfully, we don't need to start doing full language engineering to get benefits of a language based approach. Lets look at options for a first step short-cut to our desired result: [dbt](https://www.getdbt.com/).
 
@@ -38,30 +40,28 @@ For those not familiar with dbt, the following are the important parts a dbt sol
 - *Exposures* - A way to define and describe a downstream use of your project.
 - *Macros* - Blocks of code written in Jinja, a templating language that you can reuse multiple times.
 
-The following pictures show examples of some dbt configuration language files. The first is a dbt model, which in this example, is nothing more than SQL placed in a file in the proper place in the configuration structure.
+The following pictures show examples of some dbt configuration language files. The first is a dbt model which, in this example, is nothing more than SQL placed in a file in the proper place in the dbt configuration structure.
 
 <img src="./images/dbt-model.png" alt="dbt model config" width="60%">
 
-The next picture shows the template for the additional configuration of a model. It's just *configuration language* in a text file. 
+The next picture shows the template for the additional configuration of a model. It's just more *configuration language* in a text file. 
 
 <img src="./images/dbt-model-properties.png" alt="dbt model config" width="40%">
 
-Models are built by accessing the data exposed by other models or source. This is the core of a data API for a data mesh domain. You formally create your data products by *exposing* them. Dbt has some basic features to control access, e.g., Exposures, and they advancing those features rapidly. 
+Models are built by accessing the data exposed by other models or sources. A dbt solution built using this kind of configurations can be the core of a data API for a data mesh domain. You use SQL or additional dbt models to access the models defined as the data products of the domains in you data mesh. You formally create your data products by *exposing* them. Dbt has some basic features to control access, e.g., the Exposures described above, and they advancing those features rapidly. 
 
-All of the parts of a dbt solution are specified using the same kind of file-based configuration language. 
-
-You could just use the out-of-the-box dbt features and implement a reasonable data mesh. All of the configuration files taken together forms a domain language for your data transformation and access workflows. It's a low level and business domain independent language rather than a domain specific language. 
+All of the parts of a dbt solution are specified using the same kind of file-based configuration language. This language is the first iteration of automation of our domain language. You could just use these basic out-of-the-box dbt features and implement a reasonable data mesh. All of the configuration files taken together forms a domain language for your data transformation and access workflows. The model specifications are the only domain specific parts created using the language. Dbt's language is a low level and business domain independent language rather than the domain specific language we aspire to. 
 
 ## Dbt Macros as the Beginning of a DSL
 
-We move to being more of a DSL through the use of dbt macros. Macros, written using dbt's Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. We do this to avoid having SMEs creating new data products need to rewrite common complex logic. Instead, we can write it once as a macro and simplify and standardize that part of the logic. Programmers look at this as simply not repeating ourselves (DRY). More important than just avoiding repatitionis to design the macros so they align with the ubiquitous language of the domain. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience domain specific macros can still be a major step forward. 
+We move to being more of a DSL through the use of dbt macros. Macros, written using dbt's Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. We do this to avoid having SMEs creating new data products need to rewrite common complex logic. Instead, we can write it once as a macro and simplify and standardize that part of the logic. Programmers look at this as simply not repeating ourselves (DRY). More important than just avoiding repetition we need to design the macros so they align with the ubiquitous language of the domain. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience, domain specific macros can still be a major step forward. 
 
 Using this approach the architecture of a data mesh node (the right side of [the context picture](#beyond-data-mesh)) looks like the following.
 
 
 <img src="./images/dbt-in-mesh-node.png" alt="dbt model config" width="70%">
 
-The exposed dbt models are serving the **D**ata API[^data-API]. That access can be via raw SQL or by creating new dbt models outside the domain boundary that use a data product.   
+The dbt configurations are executed as the logic of the domain to produce models. The exposed dbt models serve as the **D**ata API[^data-API]. That access can be via raw SQL or by creating new dbt models outside the domain boundary that use a data product.   
 
   [^data-API]: In the data mesh pictures, APIs with a 'D' are Data APIs. Those with an 'O' are operational or other types of APIs.
 
@@ -95,25 +95,25 @@ There are limits to how well we can model the ubiquitous language of the busines
 
 <img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
 
-The following are concrete examples of formalization of the language of the domain from my recent projects. The examples go from simple and more technical language structures to more complex and more domain specific:
+The following are concrete examples of formalization of the language of the domain from my recent projects. The examples go from simple and more technical language structures to more complex and domain specific:
 
 ### Data Vault Creation and Evolution
 
-A data vault[^data-vault] is a great data structure for use inside domains of the data mesh. Covering data vaults requires a separate article. For this example, just consider the vault to be a complex relational database structure that is used to organize the data into a kind of graph build from Hubs, Satellites, and Links. Creating and modifying data vaults was a common task on many of my projects. This example can be considered a *technical* DSL used by specialists responsible for loading the data. Initially, setting up the vaults was the domain of the modeling team, over time the SMEs started to propose the structures and talk in terms of the DSL when talking about the data they wanted to access. We implemented a DSL for creation or change of a vault via a series of one line statements, e.g., the following is a simple examples that set up a hub and then does a data quality check to verify it worked:
+A data vault[^data-vault] is a great data structure for use inside domains of the data mesh. Covering data vaults requires a separate article. For this example, just consider the vault to be a complex relational database structure that is used to organize the data into a kind of graph build from Hubs, Satellites, and Links. Creating and modifying data vaults was a common task on multiple of my projects. This example can be considered a *technical* DSL used by specialists responsible for loading the data. Initially, setting up the vaults was the domain of the modeling team, over time the SMEs started to propose the structures and talk in terms of the DSL when describing the data they wanted to access. We implemented a DSL for creation or change of a vault via a series of one line statements, e.g., the following is a simple examples that set up a hub and then does a data quality check to verify it worked:
 
 ![hub instruction](./images/hub-instruction.png)
 
 ![dq instruction](./images/dq-instruction.png)
 
-In this case we didn't generate raw dbt configurations. Instead we used a the dbt vault extension [AutomateDV](https://automate-dv.com/)[^dbt-vault] to simplify the implementation. Such a tool can be considered yet another generic technical DSL layer on top of dbt. A DSL was needed here because even using this extension was too technical. Using the extension took too much effort to use and test even for a dbt expert.Our modelers barely understood dbt but their language matched the new DSL. 
+In this example we didn't generate raw dbt configurations. Instead we used a the dbt vault extension [AutomateDV](https://automate-dv.com/)[^dbt-vault] to simplify the implementation. Such a tool can be considered yet another generic technical DSL layer on top of dbt. A DSL was needed here because even using this extension was too technical. Using the extension took too much effort to use and test even for a dbt expert.Our modelers barely understood dbt but their language matched the new DSL. 
 
 ### Clinical Trial Data Mapping and Transformation
 
-There are SMEs who's job is to load and convert clinical trial data from arbitrary input formats to an industry standard format. They need to do custom versions of this for every clinical trial project and then deal with a series of changes. We implemented a language to express the mappings and transformations where SQL was only used in very special cases. An example of the kinds of high-level domain specific instructions are those for processing data from laboratory tests which converts multiple Laboratory values in a horizontal data layout, pivots it to be vertical as required by the standard and automatically deals with standard conversion tables and normal range checking. While you may not understand the details of this, describing how to do this is a central part of the ubiquotous language of clinical trail data. It typically requires detailed specifications that are then implemented as custom ETL or complex SQL. We implemented a single instruction, e.g., 
+There are SMEs who's job is to load and convert clinical trial data from arbitrary input formats to an industry standard format. They need to do custom versions of this for every clinical trial project and then deal with a series of changes. We implemented a language to express the mappings and transformations where SQL was only used in very special cases. An example of the kinds of high-level domain specific instructions are those for processing data from laboratory tests which converts multiple laboratory values in a horizontal data layout, pivots it to be vertical as required by the standard and automatically deals with standard conversion tables and normal range checking. While you may not understand the details of this, describing how to do this is a central part of the ubiquitous language of clinical trail data. It typically requires detailed specifications that are then implemented as custom ETL or complex SQL. We implemented a single instruction, e.g., 
 
 > `Lab Stack("WBC","WHITE BLOOD CELL COUNT","HEMATOLOGY","","BLOOD",LBHLAB,GEND,WBCRES,WBCU_)`
 
-A clinical data conversion SME could read like a sentence because the parameters are in an expected order of the domain when working with this type of data. This is a simple single instruction we also have sequences of instructions that work as a unit, e.g., *Nesting* is the ability to use instructions within each other to provide seamless transformations while eliminating the need for temporary variables.
+A clinical data conversion SME would read this like a sentence because the parameters are in an expected order of the domain when working with this type of data. This is a simple single instruction. We also have sequences of instructions that work as a unit, e.g., *Nesting* is the ability to use instructions within each other to provide seamless transformations while eliminating the need for temporary variables. We implemented a large set of interlocking statements like this that allowed a SME to perform their entire job. Each statement generated dbt configurations and additional code and then our runtime system executed it. 
 
 
   [^data-vault]: See https://www.data-vault.co.uk/what-is-data-vault/ or google 'data vault' to see the massive amount of information available about it. 
@@ -121,7 +121,7 @@ A clinical data conversion SME could read like a sentence because the parameters
 
 ### Full Clinical Trial Specification
 
-Both of the above DSL examples were relatively simple languages, in part because their scope was relatively small and they were relatively technical. They were substantially easier to implemented because they were a layer on top of dbt. A tool like dbt is ideal for DSL creation because it is text based (a.k.a. configuration-as-code). The DSL then generates the dbt configuration files[^generate-more-than-dbt]. The focus can be on creating the language of the domain rather than that plus deep technical challenges related to making it possible to execute the DSL instructions. Next, I'll briefly describe another example that doesn't use dbt but supports a much richer domain at a much more domain specific level. 
+Both of the above DSL examples were *relatively* simple languages because their scope was relatively small and they were relatively technical. They were substantially easier to implemented because they were a layer on top of dbt. A tool like dbt is ideal for DSL creation because it is text based (a.k.a. configuration-as-code). The DSL then generates the dbt configuration files[^generate-more-than-dbt]. The focus can be on creating the language of the domain rather than that plus deep technical challenges related to making it possible to execute the DSL instructions. Next, I'll briefly describe another example that doesn't use dbt but supports a much richer domain at a much more domain specific level. 
 
 Clinical trails are done to evaluate new medicines. They always start with writing a scientific specification of the evaluation called a *Clinical Protocol*. We built a DSL that enables the SMEs that specify data collection, calculations, workflows, and reports to be run on specialized clinical trial software systems. The following show examples of the IDE for defining these configurations.
 
@@ -147,9 +147,9 @@ How far to go on the spectrum of domain languages depends on the domain. A full 
 - Has complex rules, data, and processes and if the work of specification is dominated by business considerations rather than technical details 
 - Is repeated frequently by different SMEs in the domain 
 
-This level of work justify the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language you must not get trapped into thinking that a domain is a simple flat structure. Domains are also almost always a hierarchy of domains containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
+This level of work justifies the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language don't get trapped into thinking that a domain is a simple flat structure. Domains are almost always a hierarchy of domains containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
 
-Examples of applying this rule for deciding a full DSL is justified:
+Examples of applying this rule for deciding if a full DSL is justified:
 - The above examples of of specifying and automating the execution of the data collection and processing of a Clinical Trial justifies a full DSL because every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year. 
 - Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity. 
 - Specifying the data products, analytics, metrics, and BI reports for a financial product. If the specification changes for every customer in complex ways and lots of new customers are setup regularly. 
