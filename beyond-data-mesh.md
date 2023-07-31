@@ -122,7 +122,7 @@ A clinical data conversion SME would read this like a sentence because the param
 
 
   [^data-vault]: See https://www.data-vault.co.uk/what-is-data-vault/ or google 'data vault' to see the massive amount of information available about it. 
-  [^dbt-vault]: We used an earlier version of it called dbt-vault. It may have become easier to configure since then. What's important is the example of hiding  tecnical details from the SMEs by wrapping it with a DSL. An important benefit of a tool evolution like this, discussed later in this article, is that the DSL isolates you from the tech changes, see: TODO: write section on tech evolution. TODO: investigate whether it's more DSL in the new version.
+  [^dbt-vault]: We used an earlier version of it called dbt-vault. It may have become easier to configure since then. What's important is the example of hiding technical details from the SMEs by wrapping it with a DSL. An important benefit of a tool evolution like this, discussed later in this article, is that the DSL isolates you from the tech changes, see:  write section on tech evolution. TODO: investigate whether it's more DSL in the new version.
 
 ### Full Clinical Trial Specification Example
 
@@ -149,12 +149,14 @@ A DSL with this level of complexity requires more infrastructure than just a way
 ## The Spectrum of Domain Languages
 
 How far to go on the spectrum of domain languages depends on the domain. A full DSL is appropriate when the work of specifying a solution:
+
 - Has complex rules, data, and processes and if the work of specification is dominated by business considerations rather than technical details 
 - Is repeated frequently by different SMEs in the domain 
 
 This level of work justifies the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language don't get trapped into thinking that a domain is a simple flat structure. Domains are almost always a hierarchy containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
 
 Examples of applying this rule for deciding if a full DSL is justified:
+
 - The above example of of specifying and automating the execution of the data collection and processing of a Clinical Trial justifies a full DSL because every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year. 
 - Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity.[^tax-dsl] 
 - Specifying the data products, analytics, metrics, and BI reports for a financial product. If the specification changes for every customer in complex ways and lots of new customers are setup regularly. 
@@ -169,9 +171,9 @@ How does buying a vendor solution fit into the DSL building decision. Vendor pro
 
 ## Data Mesh APIs
 
-The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-apis] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
+The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-api] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
 
-[^operational-apis]: TODO: Investigate why data-mesh calls these 'operational APIs. The APIs labeled as 'O' in the diagrams. Operational sounds like they are limited to just managing the domain vs. accessing the data via them. Do they consider the 'D' APIs to be both the database access to data-products via SQL and the http style access?
+[^operational-api]: TODO: Investigate why data-mesh calls these 'operational APIs. The APIs labeled as 'O' in the diagrams. Operational sounds like they are limited to just managing the domain vs. accessing the data via them. Do they consider the 'D' APIs to be both the database access to data-products via SQL and the http style access?
 
 <img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
 
@@ -232,16 +234,17 @@ To anyone doing a data technology upgrade, consider a data mesh architecture dri
 
 # Appendix
 
- #TODO: decide if this material is needed...
+ TODO: decide if this material is needed.
  
 ## Full Architecture Example
 
- #TODO: consider adding this or a variation on it as an example of a full architecture for a domain.
+ TODO: consider adding this or a variation on it as an example of a full architecture for a domain.
 
 ![clin-ops-arch](./images/clin-ops-architecture.png)
 
 
 ## Bounded Domains is Data Mesh++
+
 Write about how Data Mesh is too narrow a name vs. Bounded Domains. It's not just about the data. It needs to cover all the systems not just the new ones on a cloud platform dedicated to data access and analytics. It needs to be an Enterprise Architecture pattern. 
 
-TODO: This is where we revisit the question about applications in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I've seen, it's mostly been the applications as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the applications should sometimes be inside.
+ TODO: This is where we revisit the question about applications in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I've seen, it's mostly been the applications as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the applications should sometimes be inside.
