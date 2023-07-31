@@ -140,7 +140,7 @@ The following shows a more complex DSL structure for defining when patients move
 
 A DSL with this level of complexity requires more infrastructure than just a way to generate dbt files. In this case the runtime that needed to be configured is made up of many separate systems each different and each evolving what they support at different rates.  Luckily, there are powerful tools available for building DSLs of this complexity.[^MPS] 
 
-  [^MPS]: Getting into DSL technology requires a separate article. Some great places to start are looking at [MPS](TODO: get URL) and [LionWeb](TODO: get URL)
+  [^MPS]: Getting into DSL technology requires a separate article. Some great places to start are looking at [MPS](https://www.jetbrains.com/mps/) and [LIonWeb](https://github.com/lionweb-org/)
 
   [^generate-more-than-dbt]: It's never a simple as just generating dbt config files but that is the majority of what is generated. Other things like database DDL, blocks of shell scripts or python code are also generated to fill gaps between tools like dbt.
 
@@ -161,7 +161,7 @@ Examples of applying this rule for deciding if a full DSL is justified:
 - Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity.[^tax-dsl] 
 - Specifying the data products, analytics, metrics, and BI reports for a financial product. If the specification changes for every customer in complex ways and lots of new customers are setup regularly. 
 
-  [^tax-dsl]: TODO: get a reference to the tax dsl
+  [^tax-dsl]: A video about the Dutch Tax Administrations DSL https://www.youtube.com/watch?v=_-XMjfz3RcU. This article also covers it as one of the DSL examples: https://www.infoq.com/articles/why-dsl-collection-anecdotes/
 
 A situation that might justify a full DSL even if the above criteria aren't met is if there is a lot of experimentation needed to find the right version of the configuration, e.g., as part of a rapid selling process the spec needs to be evolved and simulated. 
 
@@ -234,11 +234,11 @@ To anyone doing a data technology upgrade, consider a data mesh architecture dri
 
 # Appendix
 
- TODO: decide if this material is needed.
+ TODO: decide if this material is needed and so should be completed.
  
 ## Full Architecture Example
 
- TODO: consider adding this or a variation on it as an example of a full architecture for a domain.
+ Consider adding this or a variation on it as an example of a full architecture for a domain.
 
 ![clin-ops-arch](./images/clin-ops-architecture.png)
 
@@ -247,4 +247,4 @@ To anyone doing a data technology upgrade, consider a data mesh architecture dri
 
 Write about how Data Mesh is too narrow a name vs. Bounded Domains. It's not just about the data. It needs to cover all the systems not just the new ones on a cloud platform dedicated to data access and analytics. It needs to be an Enterprise Architecture pattern. 
 
- TODO: This is where we revisit the question about applications in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I've seen, it's mostly been the applications as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the applications should sometimes be inside.
+This is where we revisit the question about applications in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I've seen, it's mostly been the applications as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the applications should sometimes be inside.
