@@ -96,11 +96,15 @@ Similar to the previously introduced parts of dbt, even the metrics language is 
 
 ## A Full DSL
 
-There are limits to how well we can model the ubiquitous language of the business using dbt or similar generic tools. Our ability to really model the language becomes possible when we formalize our understanding of the language of the domain as a DSL. With the infrastructure of something like dbt we can have the DSL generate dbt configurations that do what the semantics of the DSL specify. The DSL isn't limited to just generating dbt. It would generate whatever is needed to perform the DSL statements. The following figure introduces the what the architecture would look like when we introduce a full DSL.
+There are limits to how well we can model the ubiquitous language of the business using dbt or similar generic tools. Our ability to really model the language becomes possible when we formalize[^formalize] our understanding of the language of the domain as a DSL[^yet-another-attempt]. With the infrastructure of something like dbt we can have the DSL generate dbt configurations that do what the semantics of the DSL specify. The DSL isn't limited to just generating dbt. It would generate whatever is needed to perform the DSL statements. The following figure introduces the what the architecture would look like when we introduce a full DSL.
 
 <img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
 
 The following are concrete examples of formalization of the language of the domain from my recent projects. The examples go from simple and more technical language structures to more complex and domain specific:
+
+  [^formalize]: This article gets into the details of the formalization needed to know [When is something a (domain-specific) language?](https://www.linkedin.com/pulse/when-something-domain-specific-language-markus-voelter/)
+  
+  [^yet-another-attempt]: For more insight into what a DSLs and some additional examples see: [Yet another attempt at explaining Domain Specific Languages](https://www.linkedin.com/pulse/yet-another-attempt-explaining-domain-specific-markus-voelter/).
 
 ### Data Vault Creation and Evolution Example
 
