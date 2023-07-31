@@ -1,0 +1,9 @@
+{
+  "spellchecker.ignoreWordsList": [
+    "Jinja",
+    "templating"
+  ],
+  "cSpell.words": [
+    "templating"
+  ]
+}

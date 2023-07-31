@@ -1,66 +1,73 @@
 
 # Beyond Data Mesh
 
-Data Mesh is a major advance over past architectures. It's the beginning, not the end of where we need to go. What do we need to do beyond the current Data Mesh architecture? 
-In the picture below, the left side is copied from: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html). It shows some nodes in a data mesh with APIs for access. The left side highlights the idea of the domain boundary an
-As highlighted in the picture below[^original-data-mesh-material], Data Mesh is about 1) finding the right boundaries around apps and data and 2) putting stable access in place at those boundaries via different types of APIs. This article discusses the things we can do to find those boundaries and going beyond that to really enable the business. 
+Data Mesh[^data-mesh-intro] is a major advance over past architectures. This article explores why it's the beginning, not the end of where we need to go to enable the business.  Data Mesh is about 1) finding the right boundaries around apps and data and 2) putting stable access in place at those boundaries via different types of APIs. The picture below highlights these aspects:
+- The left side is copied from: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html). It shows the core of the standard data mesh architecture of nodes in a data mesh with APIs for access. 
+- The right side focuses on a single data mesh node, its APIs, and the apps and data inside the boundary.
+  
+This article discusses a next generation of architecting the things we can do to find the right boundaries enabling the business to access the domain and operate inside it.
 
 ![data mesh boundaries](./images/data-mesh-boundaries.png)
 
-  [^original-data-mesh-material]: 
 
-What I've seen of data mesh approaches is to focus on the data products that make up the boundary of the nodes in the mesh. This is starting too much at the end deliverable. The place to start is the boundaries. The secret to finding the boundaries is the ubiquitous language. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
+  [^data-mesh-intro]: See:[Starbursts description of a data mesh] (https://www.starburst.io/learn/data-fundamentals/what-is-data-mesh/ https://www.starburst.io/resources/) and [Accelerating Your Cloud Migration Journey with a Data Mesh Architecture](accelerating-your-cloud-migration-journey-with-a-data-mesh-architecture/)
+
+The key challenge of a data mesh architecture is finding the right boundaries for the nodes. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
 
 >The ubiquitous language is not just a set of terms or jargon, but a shared understanding of the domain and its problems. It reflects the domain model, which is the conceptual representation of the domain in code. The ubiquitous language and the domain model should evolve together, as the developers and the business experts learn more about the domain and refine their solutions. The ubiquitous language is important because it enables collaboration, alignment, and clarity among the different roles and perspectives involved in the software project.
 
-We use the language to find the boundaries. The boundaries are at the points where the language of the domain’s data models and processing changes. This is where we want to put things like data products and APIs. Using the language also enables us to clearly understand what's going on behind those boundaries. 
+The boundaries are at the points where the language of the domain’s data models and processing changes. We use the language and the boundary it defines to find the data products and APIs. Using the language also enables us to clearly understand what's going on behind those boundaries and to better enable that work. 
 
 ## Domain Languages
 
-This level of combining data product and DDD thinking is a good start. Really powerful capabilities are found by going beyond this. The DDD approach stops at things like, dictionaries, context maps, and living documentation is a dynamic form of documentation generated from source code and tests. We need to go beyond that and formalize the language.  That may sound cryptic or scary but it's not because there is a well established discipline and community for building Domain Specific Languages (DSLs) to help us and we don't need to go all the way to implementing a DSL to get a lot of the power we're after.[^DSL-community] 
+Combining data mesh and DDD thinking is a good start. The DDD approach stops at things like, dictionaries, context maps, and living documentation as a dynamic form of documentation generated from source code and tests. Powerful capabilities are found by going beyond this and formalizing our understanding and definition of the ubiquitous language.  That may sound cryptic or scary but it's not because there is a well established discipline and community for building Domain Specific Languages (DSLs) to help us and we don't need to go all the way to implementing a DSL to get a lot of the power we're after.[^DSL-community] 
 
 [^DSL-community]: Great places to start with DSLs are this community: [Subject Matter First](https://subjectmatterfirst.org/) and the writtings of this master practitioner: [the further reading list after this article](https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/) or just google for anything written by Markus Voelter.
 
-To start to get benefits from defining a language requires at least a minimal formalization. Formalizing the language means we work with the business users that operate in the domain to create a structured version of their ubiquitous language. This takes the form of a basic language structure and syntax.  The syntax is built on existing notations and conventions used in the domain, e.g., text, tables, symbols, and diagrams, not just lots of keywords and curly braces. It requires becoming very clear – formal! – about the concepts that go into the language. In fact, building the language, because of the need for formalization, helps you become clear about the concepts of the domain in the first place. The benefits of the approach happen right away because language definition acts as a catalyst for understanding the domain![^Markus-adapted]
+Formalizing the language means we work with the business Subject Matter Experts (SMEs) of the domain to define the structure and syntax of the ubiquitous language.  The syntax is built on existing notations and conventions used in the domain, e.g., text, tables, symbols, and diagrams, not just lots of keywords and curly braces. It requires becoming very clear – formal! – about the concepts that go into the language. In fact, building the language, because of the need for formalization, helps you become clear about the concepts of the domain in the first place. The benefits of the approach happen right away because language definition acts as a catalyst for understanding the domain![^Markus-adapted]
 
-[^Markus-adapted]: This content is adapted from articles written by [Markus Voelter](https://voelter.de/index.html). 
+[^Markus-adapted]: This paragraph is adapted from articles written by [Markus Voelter](https://voelter.de/index.html). 
 
-The previous paragraph is either sounding exciting or scary, depending on where you are on the idea of programming languages and the tech for building languages in general and DSLs in particular. Defining and potentially implementing a true DSL is the way to get to the ultimate in power and differentiation of a data mesh solution. Lets look at options for a first step short-cut to our desired result.
+Defining and potentially implementing a true DSL is the way to get to the ultimate in power and differentiation of a data mesh solution. Thankfully, we don't need to start doing full language engineering to get benefits of a language based approach. Lets look at options for a first step short-cut to our desired result: [dbt](https://www.getdbt.com/).
 
-[Dbt](https://www.getdbt.com/) is one of the best technologies to get to a data mesh and move along the path to a DSL for the ubiquitous language approach proposed in this article. I'm not affiliated with the company behind dbt. I'm using it as a concrete example of the features needed to take this approach. That said, I am advocating for it's use because I really like it. 
+Whether taking a language-centric approach or not, dbt is one of the best technologies to implement the core architecture of a data mesh. Even better, is it enables us to smoothly move along the path to a full DSL for the ubiquitous language approach proposed in this article. I'm not affiliated with the company behind dbt. I'm using it as a concrete example of the features needed to take this approach. That said, I am advocating for it's use because I really like it. 
 
-For those not familiar with dbt, the important things about it for this discussion are:
-- *Models* - Each model lives in a single file and contains logic that either transforms raw data into a dataset that is ready for analytics or, more often, is an intermediate step in such a transformation.
+For those not familiar with dbt, the following are the important parts a dbt solution is built from:
+- *Models* - Each model lives in a single file and contains logic that either transforms raw data into a dataset that is ready for analytics or, more often, is an intermediate step in such a transformation. The essential thing in a model is some SQL.
 - *Sources* - A way to name and describe the data loaded into your warehouse by your Extract and Load tools.
 - *Tests* - built from SQL queries that you can write to test the models.
 - *Exposures* - A way to define and describe a downstream use of your project.
 - *Macros* - Blocks of code written in Jinja, a templating language that you can reuse multiple times.
 
-The following pictures show examples of some dbt configuration language files. The first is a dbt model which is nothing more than SQL.
+The following pictures show examples of some dbt configuration language files. The first is a dbt model, which in this example, is nothing more than SQL placed in a file in the proper place in the configuration structure.
 
 <img src="./images/dbt-model.png" alt="dbt model config" width="50%">
 
-The next picture shows the template for the additional configuration of a model.
+The next picture shows the template for the additional configuration of a model. It's just *configuration language* in a text file. 
 
 <img src="./images/dbt-model-properties.png" alt="dbt model config" width="30%">
 
 Models are built by accessing the data exposed by other models or source. This is the core of a data API for a data mesh domain. You formally create your data products by *exposing* them. Dbt has some basic features to control access, e.g., Exposures, and they advancing those features rapidly. 
 
-You could just use the out-of-the-box dbt features and implement a reasonable data mesh. All of it is written in text files and taken together it forms a domain language for your data transformation and access workflows. It's a low level and business domain independent language rather than a domain specific language. 
+All of the parts of a dbt solution are specified using the same kind of file-based configuration language. 
+
+You could just use the out-of-the-box dbt features and implement a reasonable data mesh. All of the configuration files taken together forms a domain language for your data transformation and access workflows. It's a low level and business domain independent language rather than a domain specific language. 
 
 ## Dbt Macros as the Beginning of a DSL
 
-We move to being the move to a DSL through the use of dbt macros. Macros, written using dbt's Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. For example, rather than having analysts creating new data products rewrite the complex logic for combining data for some specific operation in the domain we can write it once as a macro and simplify and standardize that part of the operation. Programmers look at this as simply not repeating ourselves (DRY). It's more important to design the macros so they align with the ubiquitous language of the domain than to do it for technical reasons. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience domain specific macros can still be a major step forward. 
+We move to being more of a DSL through the use of dbt macros. Macros, written using dbt's Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. We do this to avoid having SMEs creating new data products need to rewrite common complex logic. Instead, we can write it once as a macro and simplify and standardize that part of the logic. Programmers look at this as simply not repeating ourselves (DRY). More important than just avoiding repatitionis to design the macros so they align with the ubiquitous language of the domain. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience domain specific macros can still be a major step forward. 
 
 Using this approach the data mesh architecture looks like the following.
 
 ![dbt in mesh node](./images/dbt-in-mesh-node.png)
 
-The exposed dbt models are serving the **D**ata API. That access can be via raw SQL or by creating new dbt models outside the domain boundary that use a data product. At the end of this article, I'll revisit the question of whether the Apps are inside the domain boundary. In the data mesh implementations I've seen, it's mostly been the apps as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the apps should sometimes be inside. 
+The exposed dbt models are serving the **D**ata API[^data-API]. That access can be via raw SQL or by creating new dbt models outside the domain boundary that use a data product.   
+
+  [^data-API]: In the data mesh pictures, APIs with a 'D' are Data APIs. Those with an 'O' are operational or other types of APIs.
 
 ## Semantic Layer 
 
-The next step up the DSL ladder is already part of dbt: the [dbt Semantic Layer](https://www.getdbt.com/blog/dbt-semantic-layer-whats-next/). "The dbt Semantic Layer allows data teams to centrally define essential business metrics like revenue, customer, and churn in the modeling layer (your dbt project) for consistent self-service within downstream data tools like BI and metadata management solutions. The dbt Semantic Layer provides the flexibility to define metrics on top of your existing models and then query those metrics and models in your analysis tools of choice."[^dbt-semantic-layer]. This layer is a language for defining metrics. dbt talks about its value from the technical perspective. We're looking it as another part of our domain specific language. The business surely includes a lot in their ubiquitous language about the metrics, e.g., how are they named, how are they calculated, how do they evolve over time and where are they used. The following shows an example of a metric defined in the dbt language.
+The next step along the path to a DSL is already part of dbt: the [dbt Semantic Layer](https://www.getdbt.com/blog/dbt-semantic-layer-whats-next/). "The dbt Semantic Layer allows data teams to centrally define essential business metrics like revenue, customer, and churn in the modeling layer (your dbt project) for consistent self-service within downstream data tools like BI and metadata management solutions. The dbt Semantic Layer provides the flexibility to define metrics on top of your existing models and then query those metrics and models in your analysis tools of choice."[^dbt-semantic-layer]. This layer is a language for defining metrics. dbt talks about its value from the technical perspective. We're looking it as another part of our domain specific language. The business surely includes a lot in their ubiquitous language about the metrics, e.g., how are they named, how are they calculated, how do they evolve over time and where are they used. The following shows an example of a metric defined in the dbt language.
 
 ![example metric](images/dbt-metric-example.png)
 
@@ -74,9 +81,9 @@ Examples of the kinds of metrics that can be expressed in the language:
 - Cumulative Metrics (eg. weekly active users)
 - Aggregation types (such as sum_boolean and percentile)
 
-I see the value of a central definition of metrics in a semantic layer as transformative for a business. It will have dramatic effects on standardizing everything from basic BI reporting to the most advanced AI. The fact that the business can now see the definition 
+I see the value of a central definition of metrics in a semantic layer as transformative for a business. It will have dramatic effects on standardizing everything from basic BI reporting to the most advanced AI. The fact that the business can now see and configure the definition is a big part of this transformation. 
 
-As for all the rest of dbt, the metrics language is low level and generic rather than a business DSL. Once the metrics are defined, using them in combination with the domain specific dbt macros is a significant step forward.
+Similar to the previously introduced parts of dbt, the metrics language is low level and generic rather than a business DSL. However, once the metrics are defined, using them in combination with the domain specific dbt macros is a significant step forward.
 
   [^dbt-semantic-layer]: See: https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-semantic-layer
 
@@ -123,6 +130,19 @@ A DSL with this level of complexity requires more infrastructure than just a way
   [^MPS]: Getting into DSL technology requires a separate article. Some great places to start are looking at [MPS](TODO: get URL) and [LionWeb](TODO: get URL)
 
   [^generate-more-than-dbt]: It's never a simple as just generating dbt config files but that is the majority of what is generated. Other things like database DDL, blocks of shell scripts or python code are also generated to fill gaps between tools like dbt.
+
+## Language Spectrum
+
+How far to go on the spectrum of domain languages depends on the domain. A full DSL is appropriate when the work of specifying a solution is complex enough and repeated often enough to justify the extra implementation effort. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language you must not get trapped into thinking that a domain is a simple flat structure. Domains are also almost always actually a hierarchy of domains containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the cluster or hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
+
+A full DSL is appropriate if the work of the domain:
+- Has complex rules, data, and processes and if the work of specification is dominated by business considerations rather than technical details 
+- Is repeated frequently by different SMEs in the domain 
+An examples of such a domain is specifying and automating the execution of the data collection and processing of a Clinical Trial. Every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year. Another example is specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity. 
+
+A point somewhere less than justifying a full DSL could be specifying the data products, analytics, metrics, and BI reports for a financial product. It might be justified if the specification changes for every customer in complex ways and lots of new customers are setup regularly. Another reason a DSL is when there is a lot of experimentation needed to find the right version of the configuration, e.g., as part of a rapid selling process the spec needs to be evolved and simulated. A financial product like this example might start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL. 
+
+The reason to build full DSLs rather than expecting buy a solution is that vendor products need to be generic rather than domain specific so their target market size justifies their business. There are surely domain specific products, e.g., a product targeting clinical trials or financial investment products, but even those cannot be as specific as organization and function of your business domains. They might offer configuration and if so they should be on the path to the ideal configuration of a DSL. When considering products which are on the configurability path, favor those that enable you to add your business specific specification via something like a DSL, e.g., products that are based on configuration-as-code like dbt. 
 
 ## APIs
 
@@ -182,9 +202,13 @@ The language inside the domain can express operating on all the internal capabil
 
 ## Summary 
 
+ #TODO: write this...
+
 # Appendix
+
+ #TODO: decide if this material is needed...
 
 ## Bounded Domains is Data Mesh++
 Write about how Data Mesh is too narrow a name vs. Bounded Domains. It's not just about the data. It needs to cover all the systems not just the new ones on a cloud platform dedicated to data access and analytics. It needs to be an Enterprise Architecture pattern. 
 
-TODO: This is where we revisit the question about apps in the domain vs. just data mentioned earlier in the article.
+TODO: This is where we revisit the question about apps in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I've seen, it's mostly been the apps as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the apps should sometimes be inside.
