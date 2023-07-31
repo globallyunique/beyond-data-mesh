@@ -147,35 +147,37 @@ How far to go on the spectrum of domain languages depends on the domain. A full 
 - Has complex rules, data, and processes and if the work of specification is dominated by business considerations rather than technical details 
 - Is repeated frequently by different SMEs in the domain 
 
-This level of work justifies the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language don't get trapped into thinking that a domain is a simple flat structure. Domains are almost always a hierarchy of domains containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
+This level of work justifies the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language don't get trapped into thinking that a domain is a simple flat structure. Domains are almost always a hierarchy containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs. 
 
 Examples of applying this rule for deciding if a full DSL is justified:
-- The above examples of of specifying and automating the execution of the data collection and processing of a Clinical Trial justifies a full DSL because every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year. 
-- Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity. 
+- The above example of of specifying and automating the execution of the data collection and processing of a Clinical Trial justifies a full DSL because every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year. 
+- Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity.[^tax-dsl] 
 - Specifying the data products, analytics, metrics, and BI reports for a financial product. If the specification changes for every customer in complex ways and lots of new customers are setup regularly. 
+
+  [^tax-dsl]: TODO: get a reference to the tax dsl
 
 A situation that might justify a full DSL even if the above criteria aren't met is if there is a lot of experimentation needed to find the right version of the configuration, e.g., as part of a rapid selling process the spec needs to be evolved and simulated. 
 
-Any full DSL effort can start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL. 
+A domain language effort can start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL. 
 
-The reason to build full DSLs rather than buying a solution is that vendor products need to be generic rather than domain specific so their target market size justifies their business. There are surely domain specific products, e.g., a product targeting clinical trials or financial investment products. Unless they are very domain specific they cannot exactly match the organization and function of your business domains. They might offer configuration and if so they should be on the path to the ideal configuration via a DSL. When considering products which are on the configurability path, favor those that enable you to add your business specific specification via something like a DSL, e.g., products that are based on configuration-as-code like dbt. 
+How does buying a vendor solution fit into the DSL building decision. Vendor products need to be generic rather than domain specific so their target market size justifies their business. There are surely domain specific products, e.g., a product targeting clinical trials or financial investment products. Products always struggle with being domain specific enough to exactly match the organization and function of your business domains. Even the *configurable* or *programmable* products I've worked with over the years are rarely customizable enough to become truly domain specific without contorting them to the point where there is a major struggle to maintain them. Those that do offer configuration should be on the path to the ideal configuration via a DSL. When considering products which are on the configurability path, favor those that enable you to add your business specific specification via something like a DSL, e.g., products that are based on configuration-as-code like dbt. 
 
 ## Data Mesh APIs
 
-The previous sections covered how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-apis] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
+The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-apis] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
 
 [^operational-apis]: TODO: Investigate why data-mesh calls these 'operational APIs. The APIs labeled as 'O' in the diagrams. Operational sounds like they are limited to just managing the domain vs. accessing the data via them. Do they consider the 'D' APIs to be both the database access to data-products via SQL and the http style access?
 
 <img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
 
-The API accepts a group of statements in the domain language, executes them and returns the results. This has benefits including:
+In a DSL-based architecture, the API accepts a group of statements in the domain language, executes them and returns the results. This has benefits including:
 - The client gets to fully express the full set of semantic actions they want to perform in the language instead of a series of separate API calls
 - The language is part of the domain boundary because clients can't do anything that the language doesn't support. Making traditional API calls allows more extensive data extraction and manipulation without these limits.
 - Only one API that accepts the language need be implemented[^language-based-api-limits]
 
   [^language-based-api-limits]: Yes there will potentially need to be different APIs for different aspects or sub-sets of the language. I'm exaggerating for impact. 
 
-As discussed in earlier sections, there are multiple levels of language when using dbt. The out-of-the-box, the addition of macros, and the addition of the semantic layer. Each can be exposed a as a data API that builds as the implementation of the data mesh evolves, e.g., expose an API that is just the dbt models serving as data products. The full DSL-based API would use all of these lower level languages. 
+As discussed in earlier sections, there are multiple levels of language when using dbt. The out-of-the-box, the addition of macros, and the addition of the semantic layer. Each can be directly exposed as a data API, e.g., expose an API that is just the dbt models serving as data products. The APIs can get richer as the implementation of the data mesh evolves eventually having an API that accepted the full DSL. 
 
 ###  DSL Inside vs. Outside the Domain
 
@@ -185,42 +187,36 @@ It may be necessary to formalized two kinds of ubiquitous languages:
 
 The language inside the domain can express operating on all the internal capabilities and data. External clients may be much more restricted in what they can access or do. When focused on the data mesh you are most likely to start with the client language, e.g., how to they interact with the data products. 
 
+## Everyone wants Self-Service
 
-## Data Mesh DSL
+Few have credibly attained *self-service* data processing and there is little agreement on how attain it: low-code/no-code, drag-and-drop UIs, AI/ML, Citizen Data Scientists, etc. I define self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. The *solution* can be as simple as getting access to existing data and using it to create new data or as elaborate as building a new application. With any of the dbt intermediate architectures described above in place,  self-service is enabled for technically capable SMEs. With a full DSL in place we attain elaborate self-service for a much wider audience of SMEs. For example, a data analyst could:
+- Define new data models inside the domain 
+- Use those domains to create a new data product to expose to other analysts
+- Use the internal or data product models to define a new metric and expose that
 
-If we model the language of the domains of our data mesh we will move along the following path, e.g,
+If we don't attain these levels of self service we will never break out of the cycle of always being behind the business demands. Even more important, the right *solutions* will be built because the SMEs won't make mistakes on what to build they way it that so frequently happens in a standard IT software dev cycle. The [Subject Matter First](https://subjectmatterfirst.org/) manifesto covers this in detail.  
+
+If we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
+- Testing - before it can be used in production the analyst built solution needs to be tested. Dbt includes test automation and data quality checking as part of its language. Part of building a real DSL must include either including and integrating the dbt testing features or, ideally, having domain specific ways to test.
+- Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.
+
+A full DSL typically includes an integrated editing and testing tool, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
+
+## Summary 
+
+As we model the language of the domains of our data mesh we can move along the following path:
 - Use an out-of-the-box generic DSL style tool like the basics of dbt. 
 - Expand to use more features of the tool, potentially in combination with other tools, e.g., use of the semantic layer language of dbt potentially in combination with another tool to do more advanced data quality checking, e.g, [Great-Expectations](TODO: get url)
 - Introduce a DSL. Frequently the first DSL tends to be more technical
 - Expand the DSL to be more targeted at the SMEs of the domain. (Ideally you'd skip the more technical and start your DSL work here.)
 - Expand to more comprehensive DSLs covering different domains.
 
-You need not create a unqiue DSL for every domain, especially in the early part of the journey. There are almost certainly common data structures and operations shared by domains and basic things like how you express your data-products that could be supported by a common DSL. For example every data product likely needs common ways to express:
+You need not create a unique DSL for every domain, especially in the early part of the journey. There are almost certainly common data structures and operations shared by domains and basic things like how you express your data-products that could be supported by a common DSL. For example every data product likely needs common ways to express:
 - Data quality constraints
 - Retention
 - Tests
 - Access policies
 - API characteristics
-
-## Everyone wants Self-Service
-
-Few have credibly attained *self-service* data and processing and there is little agreement on how attain it: low-code/no-code, drag-and-drop UIs, AI/ML, Citizen Data Scientists, etc. I define self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. The *solution* can be as simple as getting access to existing data and using it to create new data or as elaborate as building a new application. With any of the dbt intermediate architectures described above in place,  self-service is enabled for technically capable SMEs. With a full DSL in place we attain elaborate self-service for a much wider audience of SMEs. For example, a data analyst could:
-- Define new data models inside the domain 
-- Use those domains to create a new data product to expose to other analysts
-- Use the internal or data product models to define a new metric and expose that
-
-If we don't attain these levels of self service we will never break out of the cycle of always being behind the business demands. Even more important, the right *solutions* will be built because the business users won't make mistakes on what to build they way it so frequently happens in a standard IT software dev cycle.
-
-If we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
-- Testing - before it can be used in production the analyst built solution needs to be tested. Dbt includes test automation and data quality checking as part of its language. Part of building a real DSL must include either including and integrating the dbt testing features or, ideally, having domain specific ways to test.
-- Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.
-
-A full DSL typcially includes an integrated editing and testing tool, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
-
-## Summary 
-
- #TODO: write this...
-
 
 # Appendix
 
