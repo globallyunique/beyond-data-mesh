@@ -1,0 +1,489 @@
+<!DOCTYPE html><html><head>
+      <title>beyond-data-mesh</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/mike.vogel/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.8/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="beyond-data-mesh">Beyond Data Mesh</h1>
+
+<p>Data Mesh<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> is a major advance over past architectures. However, it&#x2019;s the beginning, not the end of where we need to go to enable the business.  Data Mesh is about 1) finding the right boundaries around apps and data and 2) putting stable access in place at those boundaries via different types of APIs. This article discusses a next generation approach to finding the right boundaries and then enabling the business to access the domain and operate inside it. The picture below sets the context we&#x2019;ll cover:</p>
+<ul>
+<li>
+<p>The left side shows the core of the standard data mesh architecture of nodes in a data mesh with APIs for access.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+</li>
+<li>
+<p>The right side looks at a single data mesh node, its APIs, and the apps and data inside the boundary. We&#x2019;ll build details on the right side throughtout the article.</p>
+</li>
+</ul>
+<p><img src="./images/data-mesh-boundaries.png" alt="data mesh boundaries"></p>
+<p>Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I&#x2019;ve seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various <a href="https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous">ways to discover, document, and visualize the ubiquitous language</a>:</p>
+<blockquote>
+<p>The ubiquitous language is not just a set of terms or jargon, but a shared understanding of the domain and its problems. It reflects the domain model, which is the conceptual representation of the domain in code. The ubiquitous language and the domain model should evolve together, as the developers and the business experts learn more about the domain and refine their solutions. The ubiquitous language is important because it enables collaboration, alignment, and clarity among the different roles and perspectives involved in the software project.</p>
+</blockquote>
+<p>The boundaries are at the points where the language of the domain&#x2019;s data models and processing changes. We use the language and the boundary it defines to find the data products and APIs. Using the language also enables us to clearly understand what&#x2019;s going on behind those boundaries and to better enable that work.<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p>
+<h2 class="mume-header" id="domain-languages">Domain Languages</h2>
+
+<p>Combining data mesh and DDD thinking is a good start. The DDD approach stops at things like, dictionaries, context maps, and living documentation as a dynamic form of documentation generated from source code and tests. Powerful capabilities are found by going beyond this and formalizing our understanding and definition of the ubiquitous language.  That may sound cryptic or scary but it&#x2019;s not because there is a well established discipline and community for building Domain Specific Languages (DSLs) to help us and we don&#x2019;t need to go all the way to implementing a DSL to get a lot of the power we&#x2019;re after.<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></p>
+<p>Formalizing the language means we work with the Subject Matter Experts (SMEs) of the domain to define the structure and syntax of the ubiquitous language.  The syntax is built on existing notations and conventions used in the domain, e.g., text, tables, symbols, and diagrams, not just lots of keywords and curly braces. It requires becoming very clear &#x2013; formal! &#x2013; about the concepts that go into the language. In fact, building the language, because of the need for formalization, helps you become clear about the concepts of the domain in the first place. The benefits of the approach happen right away because language definition acts as a catalyst for understanding the domain!<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup></p>
+<p>Defining and potentially implementing a true DSL is the way to get to the ultimate in power and differentiation of a data mesh solution. Thankfully, we don&#x2019;t need to start doing full language engineering to get benefits of a language based approach. Lets look at options for a first step short-cut to our desired result: <a href="https://www.getdbt.com/">dbt</a>.</p>
+<p>Whether taking a language-centric approach or not, dbt is one of the best technologies to implement the core architecture of a data mesh. Even better, is it enables us to smoothly move along the path to a full DSL for the ubiquitous language approach proposed in this article. I&#x2019;m not affiliated with the company behind dbt. I&#x2019;m using it as a concrete example of the features needed to take this approach. That said, I am advocating for it&#x2019;s use because I really like it.</p>
+<p>For those not familiar with dbt, the following are the important parts a dbt solution is built from:</p>
+<ul>
+<li><em>Models</em> - Each model lives in a single file and contains logic that either transforms raw data into a dataset that is ready for analytics or, more often, is an intermediate step in such a transformation. The essential thing in a model is some SQL.</li>
+<li><em>Sources</em> - A way to name and describe the data loaded into your warehouse by your Extract and Load tools.</li>
+<li><em>Tests</em> - built from SQL queries that you can write to test the models.</li>
+<li><em>Exposures</em> - A way to define and describe a downstream use of your project.</li>
+<li><em>Macros</em> - Blocks of code written in Jinja, a templating language that you can reuse multiple times.</li>
+</ul>
+<p>The following pictures show examples of some dbt configuration language files. The first is a dbt model which, in this example, is nothing more than SQL placed in a file in the proper place in the dbt configuration structure.</p>
+<img src="./images/dbt-model.png" alt="dbt model config" width="60%">
+<p>The next picture shows the template for the additional configuration of a model. It&#x2019;s just more <em>configuration language</em> in a text file.</p>
+<img src="./images/dbt-model-properties.png" alt="dbt model config" width="40%">
+<p>Models are built by accessing the data exposed by other models or sources. A dbt solution built using this kind of configurations can be the core of a data API for a data mesh domain. You use SQL or additional dbt models to access the models defined as the data products of the domains in you data mesh. You formally create your data products by <em>exposing</em> them. Dbt has some basic features to control access, e.g., the Exposures described above, and they advancing those features rapidly.</p>
+<p>All of the parts of a dbt solution are specified using the same kind of file-based configuration language. This language is the first iteration of automation of our domain language. You could just use these basic out-of-the-box dbt features and implement a reasonable data mesh. All of the configuration files taken together forms a domain language for your data transformation and access workflows. The model specifications are the only domain specific parts created using the language. Dbt&#x2019;s language is a low level and business domain independent language rather than the domain specific language we aspire to.</p>
+<h2 class="mume-header" id="dbt-macros-as-the-beginning-of-a-dsl">Dbt Macros as the Beginning of a DSL</h2>
+
+<p>We move to being more of a DSL through the use of dbt macros. Macros, written using dbt&#x2019;s Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. We do this to avoid having SMEs creating new data products need to rewrite common complex logic. Instead, we can write it once as a macro and simplify and standardize that part of the logic. Programmers look at this as simply not repeating ourselves (DRY). More important than just avoiding repetition we need to design the macros so they align with the ubiquitous language of the domain. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience, domain specific macros can still be a major step forward.</p>
+<p>Using this approach the architecture of a data mesh node (the right side of <a href="#beyond-data-mesh">the context picture</a>) looks like the following.</p>
+<img src="./images/dbt-in-mesh-node.png" alt="dbt model config" width="70%">
+<p>The dbt configurations are executed as the logic of the domain to produce models. The exposed dbt models serve as the <strong>D</strong>ata API<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>. That access can be via raw SQL or by creating new dbt models outside the domain boundary that use a data product.</p>
+<h2 class="mume-header" id="adding-metrics-to-the-language">Adding Metrics to the Language</h2>
+
+<p>The next step along the path to a DSL is already part of dbt: the <a href="https://www.getdbt.com/blog/dbt-semantic-layer-whats-next/">dbt Semantic Layer</a>. &#x201C;The dbt Semantic Layer allows data teams to centrally define essential business metrics like revenue, customer, and churn in the modeling layer (your dbt project) for consistent self-service within downstream data tools like BI and metadata management solutions. The dbt Semantic Layer provides the flexibility to define metrics on top of your existing models and then query those metrics and models in your analysis tools of choice.&#x201D;<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>. This layer is a language for defining metrics. Dbt talks about its value from the technical perspective. We&#x2019;re looking at it as another part of our domain specific language. The business surely includes a lot in their ubiquitous language about the metrics, e.g., how are they named, how are they calculated, how do they evolve over time and where are they used. The following shows an example of a metric defined in the dbt language.</p>
+<img src="./images/dbt-metric-example.png" alt="example metric" width="70%">
+<p>The following shows how the semantic layer fits into business use.</p>
+<img src="./images/dbt-sl-architecture.png" alt="dbt semantic layer architecture" width="50%">
+<p>Examples of the kinds of metrics that can be expressed in the language:</p>
+<ul>
+<li>Expressions, e.g., <code>transactions &#x2013; cancellations</code></li>
+<li>Ratios, e.g., revenue per customer</li>
+<li>Cumulative Metrics, e.g., weekly active users</li>
+<li>Aggregation types, e.g., sum_boolean and percentile TODO: get better example of aggregation types</li>
+</ul>
+<p>I see the value of a central definition of metrics in a semantic layer as transformative for a business. It will have dramatic effects on standardizing everything from basic BI reporting to the most advanced AI. The fact that the business can now see and configure the definition is a big part of this transformation.</p>
+<p>Similar to the previously introduced parts of dbt, even the metrics language is low level and generic rather when compared to the what SMEs use the ubiquotous langage do describe metrics. However, once the metrics are defined, using them in combination with the domain specific dbt macros is a significant step forward.</p>
+<h2 class="mume-header" id="a-full-dsl">A Full DSL</h2>
+
+<p>There are limits to how well we can model the ubiquitous language of the business using dbt or similar generic tools. Our ability to really model the language becomes possible when we formalize our understanding of the language of the domain as a DSL. With the infrastructure of something like dbt we can have the DSL generate dbt configurations that do what the semantics of the DSL specify. The DSL isn&#x2019;t limited to just generating dbt. It would generate whatever is needed to perform the DSL statements. The following figure introduces the what the architecture would look like when we introduce a full DSL.</p>
+<img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
+<p>The following are concrete examples of formalization of the language of the domain from my recent projects. The examples go from simple and more technical language structures to more complex and domain specific:</p>
+<h3 class="mume-header" id="data-vault-creation-and-evolution">Data Vault Creation and Evolution</h3>
+
+<p>A data vault<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup> is a great data structure for use inside domains of the data mesh. Covering data vaults requires a separate article. For this example, just consider the vault to be a complex relational database structure that is used to organize the data into a kind of graph build from Hubs, Satellites, and Links. Creating and modifying data vaults was a common task on multiple of my projects. This example can be considered a <em>technical</em> DSL used by specialists responsible for loading the data. Initially, setting up the vaults was the domain of the modeling team, over time the SMEs started to propose the structures and talk in terms of the DSL when describing the data they wanted to access. We implemented a DSL for creation or change of a vault via a series of one line statements, e.g., the following is a simple examples that set up a hub and then does a data quality check to verify it worked:</p>
+<p><img src="./images/hub-instruction.png" alt="hub instruction"></p>
+<p><img src="./images/dq-instruction.png" alt="dq instruction"></p>
+<p>In this example we didn&#x2019;t generate raw dbt configurations. Instead we used a the dbt vault extension <a href="https://automate-dv.com/">AutomateDV</a><sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup> to simplify the implementation. Such a tool can be considered yet another generic technical DSL layer on top of dbt. A DSL was needed here because even using this extension was too technical. Using the extension took too much effort to use and test even for a dbt expert.Our modelers barely understood dbt but their language matched the new DSL.</p>
+<h3 class="mume-header" id="clinical-trial-data-mapping-and-transformation">Clinical Trial Data Mapping and Transformation</h3>
+
+<p>There are SMEs who&#x2019;s job is to load and convert clinical trial data from arbitrary input formats to an industry standard format. They need to do custom versions of this for every clinical trial project and then deal with a series of changes. We implemented a language to express the mappings and transformations where SQL was only used in very special cases. An example of the kinds of high-level domain specific instructions are those for processing data from laboratory tests which converts multiple laboratory values in a horizontal data layout, pivots it to be vertical as required by the standard and automatically deals with standard conversion tables and normal range checking. While you may not understand the details of this, describing how to do this is a central part of the ubiquitous language of clinical trail data. It typically requires detailed specifications that are then implemented as custom ETL or complex SQL. We implemented a single instruction, e.g.,</p>
+<blockquote>
+<p><code>Lab Stack(&quot;WBC&quot;,&quot;WHITE BLOOD CELL COUNT&quot;,&quot;HEMATOLOGY&quot;,&quot;&quot;,&quot;BLOOD&quot;,LBHLAB,GEND,WBCRES,WBCU_)</code></p>
+</blockquote>
+<p>A clinical data conversion SME would read this like a sentence because the parameters are in an expected order of the domain when working with this type of data. This is a simple single instruction. We also have sequences of instructions that work as a unit, e.g., <em>Nesting</em> is the ability to use instructions within each other to provide seamless transformations while eliminating the need for temporary variables. We implemented a large set of interlocking statements like this that allowed a SME to perform their entire job. Each statement generated dbt configurations and additional code and then our runtime system executed it.</p>
+<h3 class="mume-header" id="full-clinical-trial-specification">Full Clinical Trial Specification</h3>
+
+<p>Both of the above DSL examples were <em>relatively</em> simple languages because their scope was relatively small and they were relatively technical. They were substantially easier to implemented because they were a layer on top of dbt. A tool like dbt is ideal for DSL creation because it is text based (a.k.a. configuration-as-code). The DSL then generates the dbt configuration files<sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup>. The focus can be on creating the language of the domain rather than that plus deep technical challenges related to making it possible to execute the DSL instructions. Next, I&#x2019;ll briefly describe another example that doesn&#x2019;t use dbt but supports a much richer domain at a much more domain specific level.</p>
+<p>Clinical trails are done to evaluate new medicines. They always start with writing a scientific specification of the evaluation called a <em>Clinical Protocol</em>. We built a DSL that enables the SMEs that specify data collection, calculations, workflows, and reports to be run on specialized clinical trial software systems. The following show examples of the IDE for defining these configurations.</p>
+<p>The following shows<sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup> an example of how a DSL can look like a form but still contain complex domain specific instructions. For example there are multiple expressions in the fields that reference data in other parts of the DSL, e.g., &#x201C;First Scheduled&#x201D; is defined as &#x201C;Activation Completion + 6 days&#x201D;. These expressions can be arbitrary complex and the user is guided so that they only create valid expressions while still just typing.</p>
+<p><img src="./images/visit-example.png" alt="form example"></p>
+<p>The following shows a more complex DSL structure for defining when patients move through the phases of the clinical trial, e.g., they move when specific expressions about the eligibility critera evaluate to true. The implementation of this is essentially a state transition diagram. While we have the capability to build a pure state transition DSL, we instead used the language of the SMEs in the domain. Notice that the word &#x2018;event&#x2019; has a red squiggle under it. This is an example of a rich IDE that detects inconsistencies in the language as the user types and shows them as errors.</p>
+<p><img src="./images/disposition-example.png" alt="disposition example"></p>
+<p>A DSL with this level of complexity requires more infrastructure than just a way to generate dbt files. In this case the runtime that needed to be configured is made up of many separate systems each different and each evolving what they support at different rates.  Luckily, there are powerful tools available for building DSLs of this complexity.<sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p>
+<h2 class="mume-header" id="language-spectrum">Language Spectrum</h2>
+
+<p>How far to go on the spectrum of domain languages depends on the domain. A full DSL is appropriate when the work of specifying a solution:</p>
+<ul>
+<li>Has complex rules, data, and processes and if the work of specification is dominated by business considerations rather than technical details</li>
+<li>Is repeated frequently by different SMEs in the domain</li>
+</ul>
+<p>This level of work justifies the extra implementation effort for a full DSL. That work could be inside a single domain or across a closely related set of domains. When considering the boundary of the language don&#x2019;t get trapped into thinking that a domain is a simple flat structure. Domains are almost always a hierarchy containing sub-domains. Modeling the data mesh nodes and the languages they use needs to consider what level in the hierarchy of domains is the right place to establish the boundary to best serve the business needs.</p>
+<p>Examples of applying this rule for deciding if a full DSL is justified:</p>
+<ul>
+<li>
+<p>The above example of of specifying and automating the execution of the data collection and processing of a Clinical Trial justifies a full DSL because every trial is unique, the specification is dominated by the combination of how the science drives the technical details, and many trials are run in a year.</p>
+</li>
+<li>
+<p>Specifying the tax rules for a country. The rules are complex, they change across each year so must be re-specified, and the specification is dominated by a mix of business and human complexity.<sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup></p>
+</li>
+<li>
+<p>Specifying the data products, analytics, metrics, and BI reports for a financial product. If the specification changes for every customer in complex ways and lots of new customers are setup regularly.</p>
+</li>
+</ul>
+<p>A situation that might justify a full DSL even if the above criteria aren&#x2019;t met is if there is a lot of experimentation needed to find the right version of the configuration, e.g., as part of a rapid selling process the spec needs to be evolved and simulated.</p>
+<p>A domain language effort can start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL.</p>
+<p>How does buying a vendor solution fit into the DSL building decision. Vendor products need to be generic rather than domain specific so their target market size justifies their business. There are surely domain specific products, e.g., a product targeting clinical trials or financial investment products. Products always struggle with being domain specific enough to exactly match the organization and function of your business domains. Even the <em>configurable</em> or <em>programmable</em> products I&#x2019;ve worked with over the years are rarely customizable enough to become truly domain specific without contorting them to the point where there is a major struggle to maintain them. Those that do offer configuration should be on the path to the ideal configuration via a DSL. When considering products which are on the configurability path, favor those that enable you to add your business specific specification via something like a DSL, e.g., products that are based on configuration-as-code like dbt.</p>
+<h2 class="mume-header" id="data-mesh-apis">Data Mesh APIs</h2>
+
+<p>The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven&#x2019;t talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.<sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup> These are the APIs labeled with &#x2018;O&#x2019; in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn&#x2019;t allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I&#x2019;m not talking about just SQL statements. I&#x2019;m talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.</p>
+<img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
+<p>In a DSL-based architecture, the API accepts a group of statements in the domain language, executes them and returns the results. This has benefits including:</p>
+<ul>
+<li>
+<p>The client gets to fully express the full set of semantic actions they want to perform in the language instead of a series of separate API calls</p>
+</li>
+<li>
+<p>The language is part of the domain boundary because clients can&#x2019;t do anything that the language doesn&#x2019;t support. Making traditional API calls allows more extensive data extraction and manipulation without these limits.</p>
+</li>
+<li>
+<p>Only one API that accepts the language need be implemented<sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup></p>
+</li>
+</ul>
+<p>As discussed in earlier sections, there are multiple levels of language when using dbt. The out-of-the-box, the addition of macros, and the addition of the semantic layer. Each can be directly exposed as a data API, e.g., expose an API that is just the dbt models serving as data products. The APIs can get richer as the implementation of the data mesh evolves eventually having an API that accepted the full DSL.</p>
+<h3 class="mume-header" id="dsl-inside-vs-outside-the-domain">DSL Inside vs. Outside the Domain</h3>
+
+<p>It may be necessary to formalized two kinds of ubiquitous languages:</p>
+<ul>
+<li>the language used to do the work inside the domain boundary</li>
+<li>the language used by clients to interact with the domain</li>
+</ul>
+<p>The language inside the domain can express operating on all the internal capabilities and data. External clients may be much more restricted in what they can access or do. When focused on the data mesh you are most likely to start with the client language, e.g., how to they interact with the data products.</p>
+<h2 class="mume-header" id="everyone-wants-self-service">Everyone wants Self-Service</h2>
+
+<p>Few have credibly attained <em>self-service</em> data processing and there is little agreement on how attain it: low-code/no-code, drag-and-drop UIs, AI/ML, Citizen Data Scientists, etc. I define self-service as the ability of the users to create <em>executable solutions</em> in or from the domain without the IT team doing a software development cycle. The <em>solution</em> can be as simple as getting access to existing data and using it to create new data or as elaborate as building a new application. With any of the dbt intermediate architectures described above in place,  self-service is enabled for technically capable SMEs. With a full DSL in place we attain elaborate self-service for a much wider audience of SMEs. For example, a data analyst could:</p>
+<ul>
+<li>Define new data models inside the domain</li>
+<li>Use those domains to create a new data product to expose to other analysts</li>
+<li>Use the internal or data product models to define a new metric and expose that</li>
+</ul>
+<p>If we don&#x2019;t attain these levels of self service we will never break out of the cycle of always being behind the business demands. Even more important, the right <em>solutions</em> will be built because the SMEs won&#x2019;t make mistakes on what to build they way it that so frequently happens in a standard IT software dev cycle. The <a href="https://subjectmatterfirst.org/">Subject Matter First</a> manifesto covers this in detail.</p>
+<p>If we allow business users to build their own <em>solutions</em>, it needs to be done at level equivalent to an IT solution. This means real support for:</p>
+<ul>
+<li>Testing - before it can be used in production the analyst built solution needs to be tested. Dbt includes test automation and data quality checking as part of its language. Part of building a real DSL must include either including and integrating the dbt testing features or, ideally, having domain specific ways to test.</li>
+<li>Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.</li>
+</ul>
+<p>A full DSL typically includes an integrated editing and testing tool, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service.</p>
+<h2 class="mume-header" id="summary">Summary</h2>
+
+<p>As we model the language of the domains of our data mesh we can move along the following path:</p>
+<ul>
+<li>Use an out-of-the-box generic DSL style tool like the basics of dbt.</li>
+<li>Expand to use more features of the tool, potentially in combination with other tools, e.g., use of the semantic layer language of dbt potentially in combination with another tool to do more advanced data quality checking, e.g, [Great-Expectations](TODO: get url)</li>
+<li>Introduce a DSL. Frequently the first DSL tends to be more technical</li>
+<li>Expand the DSL to be more targeted at the SMEs of the domain. (Ideally you&#x2019;d skip the more technical and start your DSL work here.)</li>
+<li>Expand to more comprehensive DSLs covering different domains.</li>
+</ul>
+<p>You need not create a unique DSL for every domain, especially in the early part of the journey. There are almost certainly common data structures and operations shared by domains and basic things like how you express your data-products that could be supported by a common DSL. For example every data product likely needs common ways to express:</p>
+<ul>
+<li>Data quality constraints</li>
+<li>Retention</li>
+<li>Tests</li>
+<li>Access policies</li>
+<li>API characteristics</li>
+</ul>
+<h1 class="mume-header" id="appendix">Appendix</h1>
+
+<p>#TODO: decide if this material is needed&#x2026;</p>
+<h2 class="mume-header" id="full-architecture-example">Full Architecture Example</h2>
+
+<p>#TODO: consider adding this or a variation on it as an example of a full architecture for a domain.</p>
+<p><img src="./images/clin-ops-architecture.png" alt="clin-ops-arch"></p>
+<h2 class="mume-header" id="bounded-domains-is-data-mesh">Bounded Domains is Data Mesh++</h2>
+
+<p>Write about how Data Mesh is too narrow a name vs. Bounded Domains. It&#x2019;s not just about the data. It needs to cover all the systems not just the new ones on a cloud platform dedicated to data access and analytics. It needs to be an Enterprise Architecture pattern.</p>
+<p>TODO: This is where we revisit the question about apps in the domain vs. just data mentioned earlier in the article. In the data mesh implementations I&#x2019;ve seen, it&#x2019;s mostly been the apps as external data sources to a cloud-based data mesh. I feel we need to take a more whole-enterprise view of the bounded domains that makeup the data mesh so the apps should sometimes be inside.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>See <a href="https://www.amazon.com/Data-Mesh-Delivering-Data-Driven-Value/dp/1492092398/ref=sr_1_1?crid=2WUIEMPCPFXWK&amp;keywords=Data+Mesh%3A+Delivering+Data-Driven+Value+at+Scale&amp;qid=1690809592&amp;sprefix=data+mesh+delivering+data-driven+value+at+scale%2Caps%2C97&amp;sr=8-1">Data Mesh: Delivering Data-Driven Value at Scale</a> or Starburst&#x2019;s <a href="https://www.starburst.io/learn/data-fundamentals/what-is-data-mesh/">Description of a Data Mesh</a> and <a href="accelerating-your-cloud-migration-journey-with-a-data-mesh-architecture/">Accelerating Your Cloud Migration Journey with a Data Mesh Architecture</a> <a href="#fnref1" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>This picture is is copied from the original article on data mesh: <a href="https://martinfowler.com/articles/data-mesh-principles.html">Data Mesh Principles and Logical Architecture</a>. <a href="#fnref2" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>For more about the intersection of DDD and the language of domains see <a href="https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/">On the Relationship between Domain-Driven Design and Domain-Specific Languages</a> <a href="#fnref3" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>Great places to start with DSLs are this community: <a href="https://subjectmatterfirst.org/">Subject Matter First</a> and the writtings of this master practitioner: <a href="https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/">the further reading list after this article</a> or just google for anything written by Markus Voelter. <a href="#fnref4" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>This paragraph is taken from articles written by <a href="https://voelter.de/index.html">Markus Voelter</a>. <a href="#fnref5" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p>In the data mesh pictures, APIs with a &#x2018;D&#x2019; are Data APIs. Those with an &#x2018;O&#x2019; are operational or other types of APIs. <a href="#fnref6" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p>See: <a href="https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-semantic-layer">https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-semantic-layer</a> <a href="#fnref7" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p>See <a href="https://www.data-vault.co.uk/what-is-data-vault/">https://www.data-vault.co.uk/what-is-data-vault/</a> or google &#x2018;data vault&#x2019; to see the massive amount of information available about it. <a href="#fnref8" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p>We used an earlier version of it called dbt-vault. It may have become easier to configure since then. What&#x2019;s important is the example of hiding  tecnical details from the SMEs by wrapping it with a DSL. An important benefit of a tool evolution like this, discussed later in this article, is that the DSL isolates you from the tech changes, see: TODO: write section on tech evolution. TODO: investigate whether it&#x2019;s more DSL in the new version. <a href="#fnref9" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn10" class="footnote-item"><p>It&#x2019;s never a simple as just generating dbt config files but that is the majority of what is generated. Other things like database DDL, blocks of shell scripts or python code are also generated to fill gaps between tools like dbt. <a href="#fnref10" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn11" class="footnote-item"><p>These examples are taken from a presentation <a href="https://www.youtube.com/watch?v=zag7hkaHWD0&amp;list=PLQ176FUIyIUZ6e7lGYfyzYlnNkZiB2n9v&amp;index=9">by Clario at a DSL conference</a>. <a href="#fnref11" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn12" class="footnote-item"><p>Getting into DSL technology requires a separate article. Some great places to start are looking at [MPS](TODO: get URL) and [LionWeb](TODO: get URL) <a href="#fnref12" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn13" class="footnote-item"><p>TODO: get a reference to the tax dsl <a href="#fnref13" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn14" class="footnote-item"><p>TODO: Investigate why data-mesh calls these &apos;operational APIs. The APIs labeled as &#x2018;O&#x2019; in the diagrams. Operational sounds like they are limited to just managing the domain vs. accessing the data via them. Do they consider the &#x2018;D&#x2019; APIs to be both the database access to data-products via SQL and the http style access? <a href="#fnref14" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+<li id="fn15" class="footnote-item"><p>Yes there will potentially need to be different APIs for different aspects or sub-sets of the language. I&#x2019;m exaggerating for impact. <a href="#fnref15" class="footnote-backref">&#x21A9;&#xFE0E;</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

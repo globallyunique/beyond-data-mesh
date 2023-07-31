@@ -1,7 +1,7 @@
-
 # Beyond Data Mesh
 
 Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of where we need to go to enable the business.  Data Mesh is about 1) finding the right boundaries around apps and data and 2) putting stable access in place at those boundaries via different types of APIs. This article discusses a next generation approach to finding the right boundaries and then enabling the business to access the domain and operate inside it. The picture below sets the context we'll cover:
+
 - The left side shows the core of the standard data mesh architecture of nodes in a data mesh with APIs for access.[^original-article]
 - The right side looks at a single data mesh node, its APIs, and the apps and data inside the boundary. We'll build details on the right side throughtout the article.
 
@@ -78,6 +78,7 @@ The following shows how the semantic layer fits into business use.
 <img src="./images/dbt-sl-architecture.png" alt="dbt semantic layer architecture" width="50%">
 
 Examples of the kinds of metrics that can be expressed in the language:
+
 - Expressions, e.g., `transactions – cancellations`
 - Ratios, e.g., revenue per customer
 - Cumulative Metrics, e.g., weekly active users
@@ -205,6 +206,7 @@ A full DSL typically includes an integrated editing and testing tool, e.g., an I
 ## Summary 
 
 As we model the language of the domains of our data mesh we can move along the following path:
+
 - Use an out-of-the-box generic DSL style tool like the basics of dbt. 
 - Expand to use more features of the tool, potentially in combination with other tools, e.g., use of the semantic layer language of dbt potentially in combination with another tool to do more advanced data quality checking, e.g, [Great-Expectations](TODO: get url)
 - Introduce a DSL. Frequently the first DSL tends to be more technical
