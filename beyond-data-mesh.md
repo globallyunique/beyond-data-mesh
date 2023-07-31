@@ -5,12 +5,11 @@ Data Mesh[^data-mesh-intro] is a major advance over past architectures. However,
 - The left side shows the core of the standard data mesh architecture of nodes in a data mesh with APIs for access.[^original-article]
 - The right side looks at a single data mesh node, its APIs, and the apps and data inside the boundary. We'll build details on the right side throughtout the article.
 
-  [^original-article]: It is copied from: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html). 
+  [^original-article]: This picture is is copied from the original article on data mesh: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html). 
 
+  [^data-mesh-intro]: See [Data Mesh: Delivering Data-Driven Value at Scale](https://www.amazon.com/Data-Mesh-Delivering-Data-Driven-Value/dp/1492092398/ref=sr_1_1?crid=2WUIEMPCPFXWK&keywords=Data+Mesh%3A+Delivering+Data-Driven+Value+at+Scale&qid=1690809592&sprefix=data+mesh+delivering+data-driven+value+at+scale%2Caps%2C97&sr=8-1) or Starburst's [Description of a Data Mesh](https://www.starburst.io/learn/data-fundamentals/what-is-data-mesh/) and [Accelerating Your Cloud Migration Journey with a Data Mesh Architecture](accelerating-your-cloud-migration-journey-with-a-data-mesh-architecture/)
 
 ![data mesh boundaries](./images/data-mesh-boundaries.png)
-
-  [^data-mesh-intro]: See:[Starbursts description of a data mesh] (https://www.starburst.io/learn/data-fundamentals/what-is-data-mesh/ https://www.starburst.io/resources/) and [Accelerating Your Cloud Migration Journey with a Data Mesh Architecture](accelerating-your-cloud-migration-journey-with-a-data-mesh-architecture/)
 
 The key challenge of a data mesh architecture is finding the right boundaries for the nodes of the domain. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
 
