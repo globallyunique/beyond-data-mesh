@@ -41,11 +41,11 @@ For those not familiar with dbt, the following are the important parts a dbt sol
 
 The following pictures show examples of some dbt configuration language files. The first is a dbt model, which in this example, is nothing more than SQL placed in a file in the proper place in the configuration structure.
 
-<img src="./images/dbt-model.png" alt="dbt model config" width="50%">
+<img src="./images/dbt-model.png" alt="dbt model config" width="60%">
 
 The next picture shows the template for the additional configuration of a model. It's just *configuration language* in a text file. 
 
-<img src="./images/dbt-model-properties.png" alt="dbt model config" width="30%">
+<img src="./images/dbt-model-properties.png" alt="dbt model config" width="40%">
 
 Models are built by accessing the data exposed by other models or source. This is the core of a data API for a data mesh domain. You formally create your data products by *exposing* them. Dbt has some basic features to control access, e.g., Exposures, and they advancing those features rapidly. 
 
