@@ -17,7 +17,18 @@ people and the technical architecture and solutions in complex organizations" in
 
 ![data mesh boundaries](./images/data-mesh-boundaries.png)
 
-Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric. TODO: explain the problem... The secret to finding the boundaries is the ubiquitous language of the domain. The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
+Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric and results in a jump to a simplified version of a subset of the things the business needs from a domain.  The secret to finding the boundaries is the ubiquitous language of the domain. 
+
+I'll make the case for a language-centric approach to finding the data mesh architecture by exploring:
+- The idea of the language of a domain
+- Use of a currently available implementation tool to start quickly on versions of the language for technical users
+- Incrementally evolving the language by to make it more business user friendly, e.g., referencing metrics
+- Expanding into a full Domain Specific Language
+- How this is a path to actual business user self-service 
+
+## Domain Languages
+
+The Domain Driven Design (DDD) community proposes various [ways to discover, document, and visualize the ubiquitous language](https://www.linkedin.com/advice/0/how-do-you-document-communicate-your-ubiquitous):
 
 >The ubiquitous language is not just a set of terms or jargon, but a shared understanding of the domain and its problems. It reflects the domain model, which is the conceptual representation of the domain in code. The ubiquitous language and the domain model should evolve together, as the developers and the business experts learn more about the domain and refine their solutions. The ubiquitous language is important because it enables collaboration, alignment, and clarity among the different roles and perspectives involved in the software project.
 
@@ -25,11 +36,7 @@ The boundaries are at the points where the language of the domain’s data model
 
 [^markus-on-DDD]: For more about the intersection of DDD and the language of domains see [On the Relationship between Domain-Driven Design and Domain-Specific Languages](https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/)
 
-TODO: Add a description of the path through the ideas of the article.
-
-## Domain Languages
-
-Combining data mesh and DDD thinking is a good start. The DDD approach stops at things like, dictionaries, context maps, and living documentation as a dynamic form of documentation generated from source code and tests. Powerful capabilities are found by going beyond this and formalizing our understanding and definition of the ubiquitous language.  That may sound cryptic or scary but it's not because there is a well established discipline and community for building Domain Specific Languages (DSLs) to help us and we don't need to go all the way to implementing a DSL to get a lot of the power we're after.[^DSL-community] 
+TCombining data mesh and DDD thinking is a good start. The DDD approach stops at things like, dictionaries, context maps, and living documentation as a dynamic form of documentation generated from source code and tests. Powerful capabilities are found by going beyond this and formalizing our understanding and definition of the ubiquitous language.  That may sound cryptic or scary but it's not because there is a well established discipline and community for building Domain Specific Languages (DSLs) to help us and we don't need to go all the way to implementing a DSL to get a lot of the power we're after.[^DSL-community] 
 
 [^DSL-community]: Great places to start with DSLs are this community: [Subject Matter First](https://subjectmatterfirst.org/) and the writings of this master practitioner: [the further reading list after this article](https://www.linkedin.com/pulse/relationship-between-domain-driven-design-languages-markus-voelter/) or just google for anything written by Markus Voelter.
 
@@ -150,7 +157,7 @@ The following shows a more complex DSL structure for defining when patients move
 
 ![disposition example](./images/disposition-example.png)
 
-A DSL with this level of complexity requires more infrastructure than just a way to generate dbt files. In this case the runtime that needed to be configured is made up of many separate systems each different and each evolving what they support at different rates.  Luckily, there are powerful tools available for building DSLs of this complexity.[^MPS] TODO: Don't just reference MPS, but say half or sentence about the reference in the running text.
+A DSL with this level of complexity requires more infrastructure than just a way to generate dbt files. In this case the runtime that needed to be configured is made up of many separate systems each different and each evolving what they support at different rates.  Luckily, there are powerful tools available for building DSLs of this complexity, the tool spectrum spans [MPS](https://www.jetbrains.com/mps/), the best tool for a comprehensive DSL, the family of tools supporting the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/), and the language parser frameworks available in virtually every modern language.[^MPS] 
 
   [^MPS]: Getting into DSL technology requires a separate article. Some great places to start are looking at [MPS](https://www.jetbrains.com/mps/) and [LIonWeb](https://github.com/lionweb-org/)
 
@@ -187,7 +194,7 @@ How does buying a vendor solution fit into the DSL building decision? Vendor pro
 
 The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-api] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
 
-[^operational-api]: TODO: Investigate why data-mesh calls these 'operational APIs. The APIs labeled as 'O' in the diagrams. Operational sounds like they are limited to just managing the domain vs. accessing the data via them. Do they consider the 'D' APIs to be both the database access to data-products via SQL and the http style access?
+[^operational-api]: The data mesh literature calls the APIs labeled as 'O' in the diagrams the 'operational' APIs. In this article I'm considering the 'D' APIs to be the database access to data-products via SQL and the http style access via the 'O' APIs. 
 
 <img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="60%">
 
