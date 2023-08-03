@@ -6,8 +6,8 @@
 
 In the world of building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of where we need to go to enable the business.  Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". We'll focus on the *sociotechnical*[^sociotechnical] work of 1) finding the right boundaries around applications and data and 2) putting stable access in place at those boundaries via different types of APIs. This article discusses a next generation approach to finding the right boundaries and then enabling the business to access the domain and operate inside it. The picture below sets the context we'll cover:
 
-- The left side shows the core of the standard data mesh architecture of nodes in a data mesh with APIs for access.[^original-article]
-- The right side looks at a single data mesh node, its APIs, and the applications and data inside the boundary. We'll build details on the right side throughout the article.
+- The left side shows the core of the standard data mesh architecture of nodes and their APIs from the original data mesh article.[^original-article]
+- The right side looks inside the boundary of a single data mesh node. We'll explore details about the right side throughout the article.
 
   [^sociotechnical]: While calling it a "sociotechnical paradigm: an approach that recognizes the interactions between 
 people and the technical architecture and solutions in complex organizations" in the Data Mesh book is a nice general description, I'll be referring to it as simply the data mesh architecture. 
@@ -17,14 +17,14 @@ people and the technical architecture and solutions in complex organizations" in
 
 ![data mesh boundaries](./images/data-mesh-boundaries.png)
 
-Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of data mesh approaches is to focus on the data products to establish the boundaries. This is starting too data-centric and results in a jump to a simplified version of a subset of the things the business needs from a domain.  The secret to finding the boundaries is the ubiquitous language of the domain. 
+Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of approaches to data mesh projects is a focus on the data products to establish the boundaries. This is starting too data-centric and results in a jump to a simplified version of a subset of the things the business needs from a domain.  
 
-I'll make the case for a language-centric approach to finding the data mesh architecture by exploring:
-- The idea of the language of a domain
-- Use of a currently available implementation tool to start quickly on versions of the language for technical users
-- Incrementally evolving the language by to make it more business user friendly, e.g., referencing metrics
-- Expanding into a full Domain Specific Language
-- How this is a path to actual business user self-service 
+The secret to finding the boundaries is the ubiquitous language of the domain. I'll make make the case behind this secret and for generally taking a language-centric approach to finding the data mesh architecture by exploring:
+- The idea of the language of a domain as it's defining characteristic
+- Use of a currently available implementation tool to start quickly on a version of the language for technical users
+- Incrementally evolving the language by to make it more business user friendly
+- Expanding into a full business Subject Matter Expert (SME) Domain Specific Language
+- How a language-based approach is the path to actual SME self-service
 
 ## Domain Languages
 
