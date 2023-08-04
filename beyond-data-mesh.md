@@ -67,14 +67,13 @@ Models are built by accessing the data exposed by other models or sources. A dbt
 
 All of the parts of a dbt solution are specified using the same kind of file-based configuration language. This language is the first iteration of automation of our domain language. You could just use these basic out-of-the-box dbt features and implement a reasonable data mesh. All of the configuration files taken together forms a technical domain language for your data transformation and access workflows. The model specifications are the only domain specific parts created using the language. Dbt's language is a low level and business domain independent language rather than the domain specific language we aspire to. 
 
-We need to start making an important distinction between a technical domain language and a domain language for SMEs. The critical difference in a language for SMEs is that it is as close as possible to the business language they use with technical details suppressed. While SMEs can use a technical domain language there are almost always a much smaller audience of such SMEs. We ultimately want to support the full community of SMEs by making the a language that isn't overly technical. 
+We need to start making an important distinction between a technical domain language and a domain language for SMEs. The critical difference in a language for SMEs is that it is as close as possible to the business language they use with technical details suppressed. While SMEs can use a technical domain language there are almost always a much smaller audience of such SMEs. We ultimately want to support the full community of SMEs by making the a language that isn't overly technical. We want the domain language to support the creation of the data products and to move that work to the SMEs of the domain. Dbt's models are a great start as the data products.
 
 ## Dbt Macros as the Start of the DSL
 
 We move to being more of a DSL through the use of dbt macros. Macros, written using dbt's Jinja features, are pieces of code that can be reused multiple times. Using macros we can build higher-level abstractions that are specific to the business domain. We do this to avoid having SMEs creating new data products need to rewrite common complex logic. Instead, we can write it once as a macro and simplify and standardize that part of the logic. Programmers look at this as simply not repeating ourselves (DRY). More important than just avoiding repetition we need to design the macros so they align with the ubiquitous language of the domain. There are significant limits to what we can do with macros and there is still a lot of dbt complexity and detail exposed. However, for the right audience, domain specific macros can still be a major step forward. 
 
 Using this approach the architecture of a data mesh node (the right side of [the context picture](#beyond-data-mesh)) looks like the following.
-
 
 <img src="./images/dbt-in-mesh-node.png" alt="dbt model config" width="75%">
 
@@ -103,7 +102,7 @@ Examples of the kinds of metrics that can be expressed in the language:
 - Cumulative Metrics, e.g., weekly active users
 - Aggregation types, e.g., sum_boolean and percentile TODO: get better example of aggregation types
 
-I see the value of a central definition of metrics in a semantic layer as transformative for a business. It will have dramatic effects on standardizing everything from basic BI reporting to the most advanced AI. The fact that the business can now see and configure the definition is a big part of this transformation. 
+I see the value of a central definition of metrics in a semantic layer as transformative for a business. It will have dramatic effects on standardizing everything from basic BI reporting to the most advanced AI. The fact that the business can now see and configure the definition is a big part of this transformation. A single metric and it's dimensions can easily be a data product. Having metrics defined in the domain language further enables data product creation by SMEs.
 
 Similar to the previously introduced parts of dbt, even the metrics language is low level and generic rather when compared to the what SMEs use the ubiquitous language do describe metrics. However, once the metrics are defined, using them in combination with the domain specific dbt macros is a significant step forward. 
 
@@ -184,7 +183,7 @@ Examples of applying this rule for deciding if a full DSL is justified:
 
 A situation that might justify a full DSL even if the above criteria aren't met is if there is a lot of experimentation needed to find the right version of the configuration, e.g., as part of a rapid selling process the spec needs to be evolved and simulated. 
 
-A domain language effort can start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL. 
+A domain language effort can start with the generic out-of-the-box domain language features of a tool like dbt and over time evolve to a full DSL. As the domain language is expanded it will have richer ways to define data products, do the transformations inside the domain, and access the data products.
 
 How does buying a vendor solution fit into the DSL building decision? Vendor products need to be generic rather than domain specific so their target market size justifies their business. There are surely domain specific products, e.g., a product targeting clinical trials or financial investment products. Products always struggle with being domain specific enough to exactly match the organization and function of your business domains. Even the *configurable* or *programmable* products I've worked with over the years are rarely customizable enough to become truly domain specific without contorting them to the point where there is a major struggle to maintain them. Those that do offer configuration should be on the path to the ideal configuration via a DSL. When considering products which are on the configurability path, favor those that enable you to add your business specific specification via something like a DSL, e.g., products that are based on configuration-as-code like dbt. 
 
