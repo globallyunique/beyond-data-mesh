@@ -2,9 +2,9 @@
 
 # Beyond Data Mesh
 
-## Introduction
+## The Domain Language Approach
 
-In the world of building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of where we need to go to enable the business.  Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". We'll focus on the *sociotechnical*[^sociotechnical] work of 1) finding the right boundaries around applications and data and 2) putting stable access in place at those boundaries via different types of APIs. This article discusses a next generation approach to finding the right boundaries and then enabling the business to access the domain and operate inside it. The picture below sets the context we'll cover:
+In the world of building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of where we need to go to enable the business.  Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". We'll focus on the *sociotechnical*[^sociotechnical] work of 1) finding the right boundaries around applications and data and 2) putting full access in place at those boundaries via different types of APIs. This article discusses a next generation approach to finding the right boundaries and then enabling the business to access the domain and operate inside it. The picture below sets the context we'll cover:
 
 - The left side shows the core of the standard data mesh architecture of nodes and their APIs from the original data mesh article.[^original-article]
 - The right side looks inside the boundary of a single data mesh node. We'll explore details about the right side throughout the article.
@@ -19,12 +19,25 @@ people and the technical architecture and solutions in complex organizations" in
 
 Finding the right boundaries for the nodes of the domain is critical your data mesh architecture. What I've seen of approaches to data mesh projects is a focus on the data products to establish the boundaries. This is starting too data-centric and results in a jump to a simplified version of a subset of the things the business needs from a domain.  
 
-The secret to finding the boundaries is the ubiquitous language of the domain. I'll make make the case behind this secret and for generally taking a language-centric approach to finding the data mesh architecture by exploring:
+The secret to finding the boundaries is the ubiquitous language of the domain. I'll make make the case behind this language-centric secret to finding the data mesh architecture by exploring:
 - The idea of the language of a domain as it's defining characteristic
 - Use of a currently available implementation tool to start quickly on a version of the language for technical users
 - Incrementally evolving the language by to make it more business user friendly
 - Expanding into a full business Subject Matter Expert (SME) Domain Specific Language
 - How a language-based approach is the path to actual SME self-service
+
+## Domain Language Based Self-Service
+
+While using the ubiquitous language is a powerful approach,  an even greater benefit is how it can enable self-service. I'm not talking about self-service via infrastructure-as-a-service that enables delivery teams to create the data mesh. That kind of self-service data mesh platform is essential but there are now many examples and patterns for how to do it. I mean self service to the data and processing of a domain by the business user SMEs. Few have credibly attained this kind of *SME self-service* and there is little agreement on how attain it: low-code/no-code, drag-and-drop UIs, AI/ML, Citizen Data Scientists, etc. I define this kind of self-service as the ability of the SMEs to create *executable solutions* in or from the domain without the IT team doing a software development cycle. The *solution* can be as simple as getting access to existing data and using it to create new data, or as elaborate as building a new application. The practices proposed in this article are the path to this kind of SME self-service. 
+
+The [Subject Matter First Manifesto](https://subjectmatterfirst.org/) quoted below, establishes the justification for this approach: 
+
+> Subject matter experts own the expertise at the core of software. But too often this rich expertise is not captured in a structured way and gets lost when translating it for software developers.  With the rate of change increasing and product variability blooming, putting knowledge into software in this way is increasingly untenable. It causes delays, quality problems and frustration for everybody involved.
+>
+> We advocate for putting SMEs directly in control of “their” part of the software and letting developers focus on software engineering.
+
+If we don't attain these levels of self service we will never break out of the cycle of always being behind the business demands. With a SME self-service architecture based on the domain language we eliminate all the mis-communication between the business and IT. The right *solutions* will be built because the SMEs won't make mistakes on what to build. These mistakes happen all to frequently in a standard IT software dev cycle. I won't repeat the detailed exploration of the justification of the approach, instead you should invest a few minutes to read the full [Subject Matter First Manifesto](https://subjectmatterfirst.org/).
+
 
 ## Domain Languages
 
@@ -214,20 +227,20 @@ It may be necessary to formalized two kinds of ubiquitous languages:
 
 The language inside the domain can express operating on all the internal capabilities and data. External clients may be much more restricted in what they can access or do. When focused on the data mesh you are most likely to start with the client language, e.g., how to they interact with the data products. 
 
-## Everyone Wants a Self-Service Architecture
+## SME Self-Service
 
-I'm not talking about self-service via infrastructure-as-a-service that enables delivery teams or advanced users. I mean self service to access and use the data and processing of a domain. Few have credibly attained this kind of *self-service*  and there is little agreement on how attain it: low-code/no-code, drag-and-drop UIs, AI/ML, Citizen Data Scientists, etc. I define self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. The *solution* can be as simple as getting access to existing data and using it to create new data or as elaborate as building a new application. With any of the dbt intermediate architectures described above in place,  self-service is enabled for technically capable SMEs. With a full DSL in place we attain elaborate self-service for a much wider audience of SMEs. For example, a data analyst could:
+Recall my definition of SME self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. With any of the dbt intermediate architectures described above in place, self-service is enabled for technically capable SMEs. With a full DSL in place we attain elaborate self-service for a much wider audience of SMEs. For example, a data analyst could:
 - Define new data models inside the domain 
 - Use those domains to create a new data product to expose to other analysts
 - Use the internal or data product models to define a new metric and expose that
 
-If we don't attain these levels of self service we will never break out of the cycle of always being behind the business demands. Even more important, the right *solutions* will be built because the SMEs won't make mistakes on what to build they way it that so frequently happens in a standard IT software dev cycle. The [Subject Matter First](https://subjectmatterfirst.org/) manifesto covers this in detail.  
-
-If we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
+As we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
 - Testing - before it can be used in production the analyst built solution needs to be tested. Dbt includes test automation and data quality checking as part of its language. Part of building a real DSL must include either including and integrating the dbt testing features or, ideally, having domain specific ways to test.
 - Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.
 
 A full DSL typically includes an integrated editing and testing tool, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
+
+All of the work described in the previous sections gets us to not only just the right domains for IT to implement, it breaks us out of the cycle of always being behind the business demands by putting SME self-service in place. A data mesh architecture that doesn't enable the business in this way has much less impact. 
 
 ## Closing Remarks 
 
