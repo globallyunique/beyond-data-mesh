@@ -267,7 +267,7 @@ To anyone doing a data technology upgrade, consider a data mesh architecture dri
 
 # Appendix
 
- TODO: decide if this material is needed and so should be completed.
+ TODO: decide if this material is needed...
  
 ## Full Architecture Example
 
