@@ -265,6 +265,13 @@ To the members of the DSL community: We need to consider working in domains wher
 
 To anyone doing a data technology upgrade, consider a data mesh architecture driven by a language-centric approach.
 
+## Case Studies
+
+The following are case studies of DSLs built using the MPS technology stack. While not directly linked to building a data mesh, they show what can be done for the business within a domain(s). The first example is domain specific but not much like programming, the subsequent ones become more technical because of the scope and demands of the domain they target. 
+- [Dutch Tax and Customs Administration](https://resources.jetbrains.com/storage/products/mps/docs/MPS_DTO_Case_Study.pdf?_ga=2.229567068.150420234.1691413922-272529924.1689613960&_gl=1*1bh6ywx*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQyNDcuMjIuMC4w)
+- [Weill Cornell Medicine](https://resources.jetbrains.com/storage/products/mps/docs/MPS_MetaR_Case_Study.pdf?_ga=2.36062816.150420234.1691413922-272529924.1689613960&_gl=1*c5u0gz*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQyMzIuMzcuMC4w)
+- [Embedded Systems](https://resources.jetbrains.com/storage/products/mps/docs/MPS_mbeddr_Case_Study.pdf?_ga=2.231493343.150420234.1691413922-272529924.1689613960&_gl=1*ift3j2*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQzNTAuNjAuMC4w)
+
 # Appendix
 
  TODO: decide if this material is needed...
