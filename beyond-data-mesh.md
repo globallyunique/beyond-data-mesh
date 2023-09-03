@@ -252,7 +252,7 @@ Just using dbt can address these needs:
 A full DSL typically includes integrated editing, testing, and deployment, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
 
 
-## Closing Remarks 
+## Summary and Closing Thoughts 
 
 As we model the language of the domains of our data mesh we can move along the following path:
 
