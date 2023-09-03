@@ -262,11 +262,11 @@ As we model the language of the domains of our data mesh we can move along the f
 - Expand the DSL to be more targeted at the SMEs of the domain. (Ideally you'd skip the previous step of building the more technical and start your DSL work here.)
 - Expand to more comprehensive DSLs covering different domains.
 
-This gets us to more than just the right domains for IT to implement, it breaks us out of the cycle of always being behind the business demands by putting SME self-service in place. A data mesh architecture that doesn't enable the business in this way has much less impact. 
+This gets us to more than just the right domains for IT to implement, it breaks us out of the cycle of always being behind the business demands by putting SME self-service in place. A data mesh architecture that doesn't enable the business in this way is likely to have much less impact. 
 
-To the members of the data mesh community: Hopefully you are already focused on the ubiquitous language and the ideas in this article either support what you are already doing or encourage you to consider a more language-centric approach.
+*To the members of the data mesh community*: Hopefully you are already focused on the ubiquitous language and the ideas in this article either support what you are already doing or encourage you to consider a more language-centric approach.
 
-To the members of the DSL community: We need to consider working in domains where the traditional criteria for investing in a DSL may not be met. Instead we should investigate how our techniques can accelerate architectures like data mesh where there is a massive industry focus. 
+*To the members of the DSL community*: We need to consider working in domains where the traditional criteria for investing in a DSL may not be met. Instead we should investigate how our techniques can accelerate architectures like data mesh where there is a massive industry focus. 
 
 [^case-studies]: The following are case studies of DSLs built using the MPS technology stack. While not directly linked to building a data mesh, they show what can be done for the business within a domain(s): [Dutch Tax and Customs Administration](https://resources.jetbrains.com/storage/products/mps/docs/MPS_DTO_Case_Study.pdf?_ga=2.229567068.150420234.1691413922-272529924.1689613960&_gl=1*1bh6ywx*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQyNDcuMjIuMC4w), [Weill Cornell Medicine](https://resources.jetbrains.com/storage/products/mps/docs/MPS_MetaR_Case_Study.pdf?_ga=2.36062816.150420234.1691413922-272529924.1689613960&_gl=1*c5u0gz*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQyMzIuMzcuMC4w)
 , [Embedded Systems](https://resources.jetbrains.com/storage/products/mps/docs/MPS_mbeddr_Case_Study.pdf?_ga=2.231493343.150420234.1691413922-272529924.1689613960&_gl=1*ift3j2*_ga*MjcyNTI5OTI0LjE2ODk2MTM5NjA.*_ga_9J976DJZ68*MTY5MTQxMzkyMS4xNC4xLjE2OTE0MTQzNTAuNjAuMC4w)
