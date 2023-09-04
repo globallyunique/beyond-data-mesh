@@ -1,6 +1,6 @@
 [TOC]
 
-# Subject Matter Expert Self-Service for the Data Mesh
+# Subject Matter Expert Self-Service for the Data Mesh 
 
 ## The Domain Language Approach
 
