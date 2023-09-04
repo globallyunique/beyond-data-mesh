@@ -4,7 +4,7 @@
 
 ## The Domain Language Approach
 
-For those engaged in building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of what we can do to enable the self-service for users of the data mesh. 
+For those engaged in building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of what we need to do to enable the self-service for users of the data mesh. 
 
 Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". This article discusses aspects of the *sociotechnical* work to 1) find the right boundaries for the domains that make up the nodes of the data mesh and 2) advance the way the business can access and operate on the domain. The picture below sets the context:
 
@@ -20,11 +20,11 @@ Data mesh is referred to by it's originator as a "decentralized sociotechnical a
 Finding the right boundaries for the nodes of the domain is critical to your data mesh architecture. What I've seen of approaches to data mesh projects is a focus on the data products to establish the boundaries. This is starting too data-centric and results in a jump to a subset of the things the business needs from a domain.  
 
 The secret to finding the boundaries is the ubiquitous language of the domain. I'll make make the case for a deeply language-centric path to finding the data mesh architecture by exploring:
+- How a language-based approach is the path to actual SME self-service
 - The idea of the language of a domain as it's defining characteristic
 - Use of a currently available implementation tool to start quickly on a version of the language for technical users
 - Incrementally evolving the language by to make it more business user friendly
 - Expanding into a full Subject Matter Expert (SME) Domain Specific Language
-- How a language-based approach is the path to actual SME self-service
 
 ## Domain Language Based Self-Service
 
@@ -211,48 +211,6 @@ How does buying a vendor solution fit into the DSL building decision? Vendor pro
 
   [^criteria]: If you want a more precise discussion see: [Is a DSL suitable for you?](https://voelter.de/doyouneedone.html)
 
-## Data Mesh APIs
-
-The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-api] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
-
-[^operational-api]: The data mesh literature calls the APIs labeled as 'O' in the diagrams the 'operational' APIs. In this article I'm considering the 'D' APIs to be the database access to data-products via SQL and the http style access via the 'O' APIs. 
-
-<img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="70%">
-
-In a DSL-based architecture, the API accepts a group of statements in the domain language, executes them and returns the results. This has benefits including:
-- The client gets to fully express the full set of semantic actions they want to perform in the language instead of a series of separate API calls
-- The language is part of the domain boundary because clients can't do anything that the language doesn't support. Making traditional API calls allows more extensive data extraction and manipulation without these limits.
-- Only one API that accepts the language need be implemented[^language-based-api-limits]
-
-  [^language-based-api-limits]: Yes there will potentially need to be different APIs for different aspects or sub-sets of the language. I'm exaggerating for impact. 
-
-As discussed in earlier sections, there are multiple levels of language when using dbt: the out-of-the-box, the addition of macros, and the addition of the semantic layer. Each can be directly exposed as a data API, e.g., expose an API that is just the dbt models serving as data products. The APIs can get richer as the implementation of the data mesh evolves, eventually having an API that accepted a full DSL. 
-
-###  DSL Inside vs. Outside the Domain
-
-It may be necessary to formalized two kinds of ubiquitous languages:
-- the language used to do the work inside the domain boundary
-- the language used by clients to interact with the domain
-
-The language inside the domain can express operating on all the internal capabilities and data. External clients may be much more restricted in what they can access or do. When focused on the data mesh you are most likely to start with the client language, e.g., how to they interact with the data products. 
-
-## SME Self-Service
-
-Recall my definition of SME self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. With any of the dbt intermediate architectures described above in place, self-service is enabled for technically capable SMEs. With a full DSL in place we attain powerful self-service for a much wider audience of SMEs. For example, a data analyst could:
-- Define new data models inside the domain 
-- Use those domains to create a new data product to expose to other analysts
-- Use the internal or data product models to define a new metric and expose that
-
-As we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
-- Testing - before it can be used in production, the SME's  solution needs to be tested.  
-- Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. 
-
-Just using dbt can address these needs: 
-- Dbt includes test automation and data quality checking as part of its language. 
-- Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.
-
-A full DSL typically includes integrated editing, testing, and deployment, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
-
 
 ## Summary and Closing Thoughts 
 
@@ -277,4 +235,48 @@ We can't end without touching on the thing that has pushed data mesh out of the 
 - [Are DSLs the catalyst for making AI-based programming practical?](https://www.linkedin.com/pulse/dsls-catalyst-making-ai-based-programming-practical-markus-voelter/?trk=pulse-article)
 - [Demo of DSL Code Generated by ChatGTP](https://github.com/markusvoelter/chatGPTDemo/tree/main)
 - [AI-based Prose Programming for Subject Matter Experts: Will this work?](https://urldefense.com/v3/__https://www.infoq.com/articles/ai-based-prose-programming-for-subject-matter-experts/__;!!OrxsNty6D4my!8acAGt4OFAhTPPf09uvycPpd9MvaWagorZx_tYEuYyRPLe4n3jIbVOMCGNdN-FwWz8PzHak7pZhWa9n78zU$)
+
+# Appendix: Additional Details
+
+## Data Mesh APIs
+
+The previous sections focused on how dbt or an DSL that extends dbt would serve the Data APIs. We haven't talked about how to implement the regular API, e.g., http REST calls to retrieve data or do other processing.[^operational-api] These are the APIs labeled with 'O' in the following figure. It is my believe that there is a deep problem with the current state of APIs and how clients use them, especially when we are trying for strong domain boundaries. APIs typically do one, rather restricted thing, e.g., retrieve some data possibly filtered, store some data, launch some processing. Ideally the APIs match the part of the language of the domain that we want to expose to clients. Current technology doesn't allow an API to do the kind of rich semantic operations that the ubiquitous language supports. The client needs to string together API calls to do something like select some data, transform it, calculate something, format it, and bring back the right subset of the results. I'm not talking about just SQL statements. I'm talking about doing interesting things in the ubiquitous language. DSLs offer a novel way to define APIs that solve this problem.
+
+[^operational-api]: The data mesh literature calls the APIs labeled as 'O' in the diagrams the 'operational' APIs. In this article I'm considering the 'D' APIs to be the database access to data-products via SQL and the http style access via the 'O' APIs. 
+
+<img src="./images/intro-to-dsl-architecture.png" alt="full DSL architecture" width="70%">
+
+In a DSL-based architecture, the API accepts a group of statements in the domain language, executes them and returns the results. This has benefits including:
+- The client gets to fully express the full set of semantic actions they want to perform in the language instead of a series of separate API calls
+- The language is part of the domain boundary because clients can't do anything that the language doesn't support. Making traditional API calls allows more extensive data extraction and manipulation without these limits.
+- Only one API that accepts the language need be implemented[^language-based-api-limits]
+
+  [^language-based-api-limits]: Yes there will potentially need to be different APIs for different aspects or sub-sets of the language. I'm exaggerating for impact. 
+
+As discussed in earlier sections, there are multiple levels of language when using dbt: the out-of-the-box, the addition of macros, and the addition of the semantic layer. Each can be directly exposed as a data API, e.g., expose an API that is just the dbt models serving as data products. The APIs can get richer as the implementation of the data mesh evolves, eventually having an API that accepted a full DSL. 
+
+##  DSL Inside vs. Outside the Domain
+
+It may be necessary to formalized two kinds of ubiquitous languages:
+- the language used to do the work inside the domain boundary
+- the language used by clients to interact with the domain
+
+The language inside the domain can express operating on all the internal capabilities and data. External clients may be much more restricted in what they can access or do. When focused on the data mesh you are most likely to start with the client language, e.g., how to they interact with the data products. 
+
+## Additional SME Self-Service Features
+
+Recall my definition of SME self-service as the ability of the users to create *executable solutions* in or from the domain without the IT team doing a software development cycle. With any of the dbt intermediate architectures described above in place, self-service is enabled for technically capable SMEs. With a full DSL in place we attain powerful self-service for a much wider audience of SMEs. For example, a data analyst could:
+- Define new data models inside the domain 
+- Use those domains to create a new data product to expose to other analysts
+- Use the internal or data product models to define a new metric and expose that
+
+As we allow business users to build their own *solutions*, it needs to be done at level equivalent to an IT solution. This means real support for: 
+- Testing - before it can be used in production, the SME's  solution needs to be tested.  
+- Governance - before it can be moved to production impacts must be understood and managed, versioning must be supported, updates to metadata documentation must be done. 
+
+Just using dbt can address these needs: 
+- Dbt includes test automation and data quality checking as part of its language. 
+- Dbt includes a promotion process the supports moving new solution elements from dev to production, it supports versioning (and major extensions to versioning are coming soon), documentation is automatically produced.
+
+A full DSL typically includes integrated editing, testing, and deployment, e.g., an IDE style tool that is specific to the DSL. This level of DSL support dramatically enhances the self service. 
 
