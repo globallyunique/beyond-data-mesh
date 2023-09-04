@@ -1,17 +1,16 @@
 [TOC]
 
-# Beyond Data Mesh
+# Subject Matter Expert Self-Service for the Data Mesh
 
 ## The Domain Language Approach
 
-For those engaged in building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of what we can do to enable the business. 
+For those engaged in building cloud data solutions that align with the distributed reality of the enterprise, Data Mesh[^data-mesh-intro] is a major advance over past architectures. However, it's the beginning, not the end of what we can do to enable the self-service for users of the data mesh. 
 
-Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". This article discusses extensions to the *sociotechnical*[^sociotechnical] work of 1) finding the right boundaries around applications and data and 2) putting full access in place at those boundaries via different types of APIs. The approaches presented focus on finding the right boundaries and then advancing the way the business can access and operate on the domain. The picture below sets the context we'll cover:
+Data mesh is referred to by it's originator as a "decentralized sociotechnical approach". This article discusses aspects of the *sociotechnical* work to 1) find the right boundaries for the domains that make up the nodes of the data mesh and 2) advance the way the business can access and operate on the domain. The picture below sets the context:
 
 - The left side shows the core of the standard data mesh architecture of nodes and their APIs.[^original-article]
 - The right side looks inside the boundary of a single data mesh node. We'll explore business enabling approaches inside and around the right side throughout the article.
-
-  [^sociotechnical]: While calling it a "sociotechnical paradigm: an approach that recognizes the interactions between people and the technical architecture and solutions in complex organizations" in the Data Mesh book is a nice general description, I'll be referring to it as simply the data mesh architecture. 
+ 
   [^original-article]: This picture is is copied from the original article on data mesh: [Data Mesh Principles and Logical Architecture](https://martinfowler.com/articles/data-mesh-principles.html). 
 
   [^data-mesh-intro]: See [Data Mesh: Delivering Data-Driven Value at Scale](https://www.amazon.com/Data-Mesh-Delivering-Data-Driven-Value/dp/1492092398/ref=sr_1_1?crid=2WUIEMPCPFXWK&keywords=Data+Mesh%3A+Delivering+Data-Driven+Value+at+Scale&qid=1690809592&sprefix=data+mesh+delivering+data-driven+value+at+scale%2Caps%2C97&sr=8-1) or Starburst's [Description of a Data Mesh](https://www.starburst.io/learn/data-fundamentals/what-is-data-mesh/) and [Accelerating Your Cloud Migration Journey with a Data Mesh Architecture](accelerating-your-cloud-migration-journey-with-a-data-mesh-architecture/)
