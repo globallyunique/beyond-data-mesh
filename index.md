@@ -16,6 +16,9 @@
   - [DSL Inside vs. Outside the Domain](#dsl-inside-vs-outside-the-domain)
   - [Additional SME Self-Service Features](#additional-sme-self-service-features)
 
+By MIKE VOGEL [globallyunique@gmail.com](mailto:globallyunique@gmail.com). 
+
+
 # Subject Matter Expert Self-Service for the Data Mesh
 
 ## The Domain Language Approach
