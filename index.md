@@ -1,4 +1,20 @@
-[TOC]
+- [Subject Matter Expert Self-Service for the Data Mesh](#subject-matter-expert-self-service-for-the-data-mesh)
+  - [The Domain Language Approach](#the-domain-language-approach)
+  - [Domain Language Based Self-Service](#domain-language-based-self-service)
+  - [Domain Languages](#domain-languages)
+  - [Dbt Macros as the Start of the DSL](#dbt-macros-as-the-start-of-the-dsl)
+  - [Adding Metrics to the Language](#adding-metrics-to-the-language)
+  - [A Full DSL](#a-full-dsl)
+    - [Data Vault Creation and Evolution Example](#data-vault-creation-and-evolution-example)
+    - [Clinical Trial Data Mapping and Transformation Example](#clinical-trial-data-mapping-and-transformation-example)
+    - [Full Clinical Trial Specification Example](#full-clinical-trial-specification-example)
+  - [The Spectrum of Domain Languages](#the-spectrum-of-domain-languages)
+  - [Summary and Closing Thoughts](#summary-and-closing-thoughts)
+    - [DSLs and ChatGTP-LLMs](#dsls-and-chatgtp-llms)
+- [Appendix: Additional Details](#appendix-additional-details)
+  - [Data Mesh APIs](#data-mesh-apis)
+  - [DSL Inside vs. Outside the Domain](#dsl-inside-vs-outside-the-domain)
+  - [Additional SME Self-Service Features](#additional-sme-self-service-features)
 
 # Subject Matter Expert Self-Service for the Data Mesh
 
